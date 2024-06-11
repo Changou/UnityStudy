@@ -8,6 +8,7 @@ public class KillPatrol : MonoBehaviour
     int[] killCnt = {0,0,0,0 };
 
     [SerializeField] Text[] _t;
+    [SerializeField] Text[] _t_name;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +36,9 @@ public class KillPatrol : MonoBehaviour
                     {
                         Debug.Log(hit.collider.name + "이 사망하였습니다.");
                         Destroy(hit.collider.gameObject);
+                        Destroy(_t_name[patrolNumber]);
                         _t[patrolNumber].text = hit.collider.name + " : DIE"; 
+                        
                     }
                 }
             }

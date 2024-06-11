@@ -39,8 +39,12 @@ public class Move : MonoBehaviour
     [SerializeField] Text stateText;
 
     Renderer patrolColor;
-
+    [Header("경비 속도")]
     [SerializeField] float speed = 15f;
+
+    [Header("경비이름")]
+    [SerializeField] GameObject p_Name;
+
     float currentSpeed;
     float decelerationRate = 0.992f;
     float trackingSpeed = 3f;
@@ -57,6 +61,7 @@ public class Move : MonoBehaviour
 
     void Update()
     {
+        p_Name.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(1f, 1.2f, 0));
         PatrolMachine();
         stateText.text = gameObject.name + " : " + _t.ToString();
         if (_t == Type.PATROL)
