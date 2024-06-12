@@ -1,0 +1,5 @@
+sceneSetups:
+- path: Assets/1. Vector/Sample/1. Vector Basic/Vector1.unity
+  isLoaded: 1
+  isActive: 1
+  isSubScene: 0
