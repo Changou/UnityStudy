@@ -19,8 +19,8 @@ public class CheckInSight : MonoBehaviour
         CustomVector3 c_target = new CustomVector3(_target.position);
         CustomVector3 _mine = new CustomVector3(transform.position);
 
-        Debug.DrawLine(_mine.Trans, _mine.Trans + leftDir.Trans, Color.green);
-        Debug.DrawLine(_mine.Trans, _mine.Trans + rightDir.Trans, Color.green);
+        Debug.DrawLine(_mine.ToVector3(), _mine.ToVector3() + leftDir.ToVector3(), Color.green);
+        Debug.DrawLine(_mine.ToVector3(), _mine.ToVector3() + rightDir.ToVector3(), Color.green);
 
         if (IsTargetInSight(c_target, _radius)) Debug.Log("보인다!!!");
         else Debug.Log("어딨지???");

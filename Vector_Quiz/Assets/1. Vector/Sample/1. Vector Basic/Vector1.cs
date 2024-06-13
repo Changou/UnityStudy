@@ -37,8 +37,8 @@ public class Vector1 : MonoBehaviour
         Debug.Log(dir.ToString());
 
         Debug.DrawLine(
-            _trs1.transform.position,
-            _trs2.transform.position);
+            pos1.ToVector3(),
+            pos2.ToVector3());
 
         Debug.Log("== 정규화 된 방향 ===========");
         Debug.Log(dir.normalized.ToString());

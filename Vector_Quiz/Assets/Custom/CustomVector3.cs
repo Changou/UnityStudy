@@ -23,13 +23,11 @@ public struct CustomVector3
         _z = z;
     }
 
-    public Vector3 Trans
+    public Vector3 ToVector3()
     {
-        get
-        {
-            Vector3 res = new Vector3(_x, _y, _z);
-            return res;
-        }
+         Vector3 res = new Vector3(_x, _y, _z);
+         return res;
+        
     }
 
     public static float SqrMagnitude(CustomVector3 v)
@@ -100,6 +98,6 @@ public struct CustomVector3
     
     public override string ToString()
     {
-        return $"({_x}, {_y}, {_z})";
+        return $"({_x.ToString("F2")}, {_y.ToString("F2")}, {_z.ToString("F2")})";
     }
 }

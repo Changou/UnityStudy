@@ -19,17 +19,18 @@ public class DrawCircle : MonoBehaviour
     {
         float angle = 0f;
         Quaternion rot = Quaternion.LookRotation(transform.forward, transform.up);
-        Vector3 lastPoint = Vector3.zero;
-        Vector3 thisPoint = Vector3.zero;
+        CustomVector3 lastPoint = new CustomVector3(Vector3.zero);
+        CustomVector3 thisPoint = new CustomVector3(Vector3.zero);
+        CustomVector3 _mine = new CustomVector3(transform.position);
 
         for (int i = 0; i < (_segments + 1); ++i)
         {
-            thisPoint.x = Mathf.Sin(Mathf.Deg2Rad * angle) * _radX;
-            thisPoint.z = Mathf.Cos(Mathf.Deg2Rad * angle) * _radZ;
+            thisPoint._x = Mathf.Sin(Mathf.Deg2Rad * angle) * _radX;
+            thisPoint._z = Mathf.Cos(Mathf.Deg2Rad * angle) * _radZ;
 
             if (i > 0)
-                Debug.DrawLine(rot * lastPoint + transform.position,
-                                rot * thisPoint + transform.position,
+                Debug.DrawLine(rot * lastPoint.ToVector3() + _mine.ToVector3(),
+                                rot * thisPoint.ToVector3() + _mine.ToVector3(),
                                 Color.green, 0);
 
             lastPoint = thisPoint;

@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/1. Vector/Sample/1. Vector Basic/Vector1.unity
+- path: Assets/1. Vector/Sample/5. Cross/Directon/Cross Directon.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

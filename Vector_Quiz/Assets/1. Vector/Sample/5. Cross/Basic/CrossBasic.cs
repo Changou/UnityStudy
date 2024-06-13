@@ -25,11 +25,11 @@ public class CrossBasic: MonoBehaviour
         //_cross = Vector3.Cross( right.normalized, forward.normalized );
         _cross.Normalize();
 
-        Vector3 cross = _cross.Trans;
+        Vector3 cross = _cross.ToVector3();
 
-        Debug.DrawLine(centerPos.Trans, cross, Color.cyan);
-        Debug.DrawLine(centerPos.Trans, pos1.Trans, Color.white);
-        Debug.DrawLine(centerPos.Trans, pos2.Trans, Color.white);
+        Debug.DrawLine(centerPos.ToVector3(), cross, Color.cyan);
+        Debug.DrawLine(centerPos.ToVector3(), pos1.ToVector3(), Color.white);
+        Debug.DrawLine(centerPos.ToVector3(), pos2.ToVector3(), Color.white);
 
     }// void OnDrawGizmos()
     //--------------------------------

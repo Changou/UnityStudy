@@ -17,7 +17,7 @@ public class CrossDirecton : MonoBehaviour
         CustomVector3 center = new CustomVector3(_center.position);
         CustomVector3 pos_up = new CustomVector3(transform.up);
 
-        _pos1.RotateAround(center.Trans, pos_up.Trans, _orbitSpeed * Time.deltaTime); 
+        _pos1.RotateAround(center.ToVector3(), pos_up.ToVector3(), _orbitSpeed * Time.deltaTime); 
     }
     //--------------------------------
     private void OnDrawGizmos()
@@ -26,13 +26,15 @@ public class CrossDirecton : MonoBehaviour
         CustomVector3 pos2 = new CustomVector3(_pos2.position);
         CustomVector3 center = new CustomVector3(_center.position);
 
-        Debug.DrawLine(center.Trans, cross.Trans, Color.cyan);
-        Debug.DrawLine(center.Trans, pos1.Trans, Color.white);
-        Debug.DrawLine(center.Trans, pos2.Trans, Color.white);
+        cross = CustomVector3.Cross(pos1 - center, pos2 - center);
+
+        Debug.DrawLine(center.ToVector3(), cross.ToVector3(), Color.cyan);
+        Debug.DrawLine(center.ToVector3(), pos1.ToVector3(), Color.white);
+        Debug.DrawLine(center.ToVector3(), pos2.ToVector3(), Color.white);
 
         
 
-        cross = CustomVector3.Cross(pos1, pos2);
+        
 
         if (cross._y > 0)
             Debug.Log(_pos2.name + "은(는)" + _pos1.name + "의 오른쪽");

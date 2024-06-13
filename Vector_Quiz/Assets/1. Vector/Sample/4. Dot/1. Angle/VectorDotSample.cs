@@ -48,8 +48,8 @@ public class VectorDotSample : MonoBehaviour
         else if (0 < dot && dot < 1)
             _color = Color.blue;
 
-        Debug.DrawLine(centerPos.Trans, pos1.Trans, _color);
-        Debug.DrawLine(centerPos.Trans, pos2.Trans, _color);
+        Debug.DrawLine(centerPos.ToVector3(), pos1.ToVector3(), _color);
+        Debug.DrawLine(centerPos.ToVector3(), pos2.ToVector3(), _color);
 
         //  각도..
         //  -   A * B = |A||B| cos@
