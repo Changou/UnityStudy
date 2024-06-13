@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnManger : MonoBehaviour
@@ -16,9 +17,6 @@ public class SpawnManger : MonoBehaviour
     [Header("µÙ∑π¿Ã")]
     [SerializeField] float spawnDelay;
 
-    bool isSpawn = true;
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -27,12 +25,11 @@ public class SpawnManger : MonoBehaviour
 
     IEnumerator Spawn()
     {
-        while (isSpawn)
+        while (GameManager.i.isGameOver)
         {
             yield return new WaitForSeconds(spawnDelay);
             GameObject item = Instantiate(prefab);
             item.transform.position = RandomPosition();
-            Destroy(item, 5f);
         }
     }
 

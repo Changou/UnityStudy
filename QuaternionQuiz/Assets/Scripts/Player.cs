@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     Camera _camera;
 
     bool isMove;
+    
     Vector3 _destination;
     Vector3 dir;
     Quaternion lookTarget;
@@ -29,7 +30,8 @@ public class Player : MonoBehaviour
             RaycastHit hit;
             if(Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition),out hit))
             {
-                setDestination(hit.point);
+                if(hit.transform.name == "Ground")
+                    setDestination(hit.point);
             }
         }
         Move();
@@ -45,17 +47,19 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        if(isMove)
+        if (GameManager.i.isGameOver)
         {
-            if(Vector3.Distance(_destination, transform.position)<= 0.1f)
+            if (isMove)
             {
-                isMove = false;
-                return;
+                if (Vector3.Distance(_destination, transform.position) <= 0.1f)
+                {
+                    isMove = false;
+                    return;
+                }
+                var dir = _destination - transform.position;
+                transform.position += dir.normalized * Time.deltaTime * speed;
+                transform.rotation = Quaternion.Lerp(transform.rotation, lookTarget, turnSpeed);
             }
-            var dir = _destination - transform.position;
-            transform.position += dir.normalized * Time.deltaTime * speed;
-            transform.rotation = Quaternion.Lerp(transform.rotation, lookTarget, turnSpeed);
-
         }
     }
 }
