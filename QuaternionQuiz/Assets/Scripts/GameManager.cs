@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,13 +12,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text timeT;
     [SerializeField] Text scoreT;
     [SerializeField] Text overT;
-    
-    [Header("시간제한(분)"), SerializeField] float time;
+    [SerializeField] Button btn;
+
+    [Header("시간제한(초)"), SerializeField] float time;
+
+    [SerializeField] float flashDelay;
     
     float curTime;
-    int minute;
-    int second;
     int score;
+    bool warningT = true;
 
     public bool isGameOver;
 
@@ -26,45 +29,80 @@ public class GameManager : MonoBehaviour
         i = this;
         isGameOver = true;
         score = 0;
-        StartCoroutine(StartTimer());
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        timeT.text = time.ToString("00") + ":00";
+        timeT.text = string.Format("{00:N2}", time);
         scoreT.text = "점수 : " + score;
+        StartCoroutine(StartTimer());
     }
 
-    void GameOver()
+    public void GameOver()
     {
         isGameOver = false;
         overT.gameObject.SetActive(true);
+        btn.gameObject.SetActive(true);
+        StopAllCoroutines();
+    }
+
+    public void GameClear()
+    {
+        isGameOver = false;
+        overT.gameObject.SetActive(true);
+        overT.text = "CLEAR!!";
+        btn.gameObject.SetActive(true);
+        StopAllCoroutines();
+    }
+
+    public void NextStage()
+    {
+        StageManager.i.Next();
+        SpawnManger.i.StageUp();
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     IEnumerator StartTimer()
     {
-        yield return new WaitForSeconds(1f);
-        time *= 60;
+        yield return new WaitForSeconds(0.5f);
         curTime = time;
         while (curTime > 0)
         {
             curTime -= Time.deltaTime;
-            minute = (int)curTime / 60;
-            second = (int)curTime % 60;
-            timeT.text = minute.ToString("00") + ":" + second.ToString("00");
-            yield return null;
 
+            timeT.text = string.Format("{00:N2}", curTime);
+            yield return null;
+            if(curTime <= 10 && curTime > 0 && warningT)
+            {
+                StartCoroutine(Flash());
+            }
             if (curTime <= 0)
             {
-                Debug.Log("시간 종료");
+                warningT = true;
+                timeT.color = Color.black;
                 curTime = 0;
-                GameOver();
+                GameClear();
                 yield break;
             }
         }
     }
 
+    IEnumerator Flash()
+    {
+        warningT = false;
+        while (!warningT)
+        {
+            timeT.color = Color.white;
+            yield return new WaitForSeconds(flashDelay);
+            timeT.color = Color.red;
+            yield return new WaitForSeconds(flashDelay);
+        }
+    }
     public void AddScore()
     {
         score++;

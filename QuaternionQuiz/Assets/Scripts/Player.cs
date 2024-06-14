@@ -10,16 +10,24 @@ public class Player : MonoBehaviour
     [Header("회전속도"), SerializeField] float turnSpeed;
 
     Camera _camera;
-
+    float tmp_speed;
     bool isMove;
     
     Vector3 _destination;
     Vector3 dir;
     Quaternion lookTarget;
+    Renderer playerColor;
+    Color mineColor;
 
     private void Awake()
     {
         _camera = Camera.main;
+    }
+
+    private void Start()
+    {
+        playerColor = GetComponent<Renderer>();
+        mineColor = playerColor.material.color;
     }
 
     // Update is called once per frame
@@ -31,13 +39,26 @@ public class Player : MonoBehaviour
             if(Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition),out hit))
             {
                 if(hit.transform.name == "Ground")
-                    setDestination(hit.point);
+                    SetDestination(hit.point);
             }
         }
         Move();
     }
 
-    void setDestination(Vector3 dest)
+    public void SpeedUp()
+    {
+        tmp_speed = speed;
+        speed += 2;
+        StartCoroutine(ReturnSpeed());
+    }
+    IEnumerator ReturnSpeed()
+    {
+        playerColor.material.color = Color.blue;
+        yield return new WaitForSeconds(3f);
+        playerColor.material.color = mineColor;
+        speed = tmp_speed;
+    }
+    void SetDestination(Vector3 dest)
     {
         _destination = new Vector3(dest.x, transform.position.y, dest.z);
         dir = _destination - transform.position;
