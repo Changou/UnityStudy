@@ -12,7 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text timeT;
     [SerializeField] Text scoreT;
     [SerializeField] Text overT;
-    [SerializeField] Button btn;
+    [SerializeField] Button reBtn;
+    [SerializeField] Button nextBtn;
+    [SerializeField] Transform player;
 
     [Header("시간제한(초)"), SerializeField] float time;
 
@@ -43,7 +45,7 @@ public class GameManager : MonoBehaviour
     {
         isGameOver = false;
         overT.gameObject.SetActive(true);
-        btn.gameObject.SetActive(true);
+        reBtn.gameObject.SetActive(true);
         StopAllCoroutines();
     }
 
@@ -52,7 +54,10 @@ public class GameManager : MonoBehaviour
         isGameOver = false;
         overT.gameObject.SetActive(true);
         overT.text = "CLEAR!!";
-        btn.gameObject.SetActive(true);
+        if(StageManager.i.CurrentStage < 3)
+        {
+            nextBtn.gameObject.SetActive(true);
+        }
         StopAllCoroutines();
     }
 
@@ -60,6 +65,20 @@ public class GameManager : MonoBehaviour
     {
         StageManager.i.Next();
         SpawnManger.i.StageUp();
+        overT.gameObject.SetActive(false);
+        nextBtn.gameObject.SetActive(false);
+        time = 30f;
+        timeT.text = string.Format("{00:N2}", time);
+        player.position = new Vector3(0, 0.3f, 0);
+        player.rotation = Quaternion.Euler(0, 0, 0);
+        GameObject[] allPrefabs = GameObject.FindGameObjectsWithTag("Prefab");
+        foreach(GameObject prefab in allPrefabs)
+        {
+            Destroy(prefab);
+        }
+        isGameOver = true;
+        SpawnManger.i.ReStart();
+        StartCoroutine(StartTimer());
     }
 
     public void Restart()

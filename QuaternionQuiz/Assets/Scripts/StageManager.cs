@@ -7,13 +7,18 @@ public class StageManager : MonoBehaviour
 {
     public static StageManager i;
 
-    [SerializeField] Transform _ground;
+    [SerializeField] GameObject _ground;
+    [SerializeField] GameObject _stageG2;
+    [SerializeField] GameObject _stageG3;
     [SerializeField] int currentStage;
     [SerializeField] Text stageT;
 
     private void Awake()
     {
         i = this;
+        _ground.SetActive(false);
+        _stageG2.SetActive(false);
+        _stageG3.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -39,13 +44,15 @@ public class StageManager : MonoBehaviour
         switch (currentStage)
         {
             case 1:
-                _ground.localScale = new Vector3(1, 1, 1);
+                _ground.SetActive(true);
                 break;
             case 2:
-                _ground.localScale = new Vector3(3, 1, 3);
+                _ground.SetActive(false);
+                _stageG2.SetActive(true);
                 break;
             case 3:
-                _ground.localScale = new Vector3(4, 1, 4);
+                _stageG2.SetActive(false);
+                _stageG3.SetActive(true);
                 break;
         }
     }

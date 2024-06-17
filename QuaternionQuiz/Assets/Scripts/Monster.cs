@@ -10,10 +10,11 @@ public class Monster : MonoBehaviour
     [Header("몬스터속도"), SerializeField] float monSpeed;
     [Header("스턴시간"), SerializeField] float stunTime;
 
-    [SerializeField] float maxX;
-    [SerializeField] float minX;
-    [SerializeField] float maxZ;
-    [SerializeField] float minZ;
+    [SerializeField] float max;
+    [SerializeField] float min;
+
+    float tmp_max;
+    float tmp_min;
 
     Vector3 dir;
     Quaternion lookTarget;
@@ -27,9 +28,24 @@ public class Monster : MonoBehaviour
 
     private void Awake()
     {
+        tmp_max = max;
+        tmp_min = min;
         _target = GameObject.Find("Player").GetComponent<Transform>();
         isReversal = false;
         isMove = true;
+        switch (StageManager.i.CurrentStage)
+        {
+            case 1:
+                break;
+            case 2:
+                tmp_max *= 3;
+                tmp_min *= 3;
+                break;
+            case 3:
+                tmp_max *= 4;
+                tmp_min *= 4;
+                break;
+        }
     }
 
     // Start is called before the first frame update
@@ -92,7 +108,6 @@ public class Monster : MonoBehaviour
         }
     }
 
-
     private void Move(Vector3 target)
     {
         dir = target - transform.position;
@@ -107,21 +122,22 @@ public class Monster : MonoBehaviour
     }
     void NoEntry()
     {
-        if (transform.position.x >= maxX)
+        
+        if (transform.position.x >= tmp_max)
         {
-            transform.position = new Vector3(maxX, transform.position.y, transform.position.z);
+            transform.position = new Vector3(tmp_max, transform.position.y, transform.position.z);
         }
-        else if (transform.position.x <= minX)
+        else if (transform.position.x <= tmp_min)
         {
-            transform.position = new Vector3(minX, transform.position.y, transform.position.z);
+            transform.position = new Vector3(tmp_min, transform.position.y, transform.position.z);
         }
-        if (transform.position.z >= maxZ)
+        if (transform.position.z >= tmp_max)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, maxZ);
+            transform.position = new Vector3(transform.position.x, transform.position.y, tmp_max);
         }
-        else if (transform.position.z <= minZ)
+        else if (transform.position.z <= tmp_min)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, minZ);
+            transform.position = new Vector3(transform.position.x, transform.position.y, tmp_min);
         }
     }
 }

@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     Renderer playerColor;
     Color mineColor;
 
+    Coroutine speedCor;
+
     private void Awake()
     {
         _camera = Camera.main;
@@ -38,7 +40,7 @@ public class Player : MonoBehaviour
             RaycastHit hit;
             if(Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition),out hit))
             {
-                if(hit.transform.name == "Ground")
+                if(hit.transform.gameObject.CompareTag("Ground"))
                     SetDestination(hit.point);
             }
         }
@@ -47,12 +49,17 @@ public class Player : MonoBehaviour
 
     public void SpeedUp()
     {
-        tmp_speed = speed;
-        speed += 2;
-        StartCoroutine(ReturnSpeed());
+        if (speedCor != null)
+        {
+            StopCoroutine(speedCor);
+            speed = tmp_speed;
+        }
+        speedCor = StartCoroutine(ReturnSpeed());
     }
     IEnumerator ReturnSpeed()
     {
+        tmp_speed = speed;
+        speed += 2;
         playerColor.material.color = Color.blue;
         yield return new WaitForSeconds(3f);
         playerColor.material.color = mineColor;

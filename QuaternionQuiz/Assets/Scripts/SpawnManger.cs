@@ -8,10 +8,8 @@ public class SpawnManger : MonoBehaviour
     public static SpawnManger i;
 
     [Header("스폰위치")] 
-    [SerializeField] float maxZ;
-    [SerializeField] float minZ;
-    [SerializeField] float maxX;
-    [SerializeField] float minX;
+    [SerializeField] float max;
+    [SerializeField] float min;
 
     [Header("포인트")]
     [SerializeField] GameObject prefab;
@@ -25,9 +23,14 @@ public class SpawnManger : MonoBehaviour
     [SerializeField] float spawnPointDelay;
     [SerializeField] float spawnItemDelay;
 
+    float tmp_max;
+    float tmp_min;
+
     private void Awake()
     {
         i = this;
+        tmp_max = max;
+        tmp_min = min;
     }
 
     // Start is called before the first frame update
@@ -36,23 +39,32 @@ public class SpawnManger : MonoBehaviour
         StartCoroutine(MonsterSpawn());
         StartCoroutine(ItemSpawn());
         StartCoroutine(Spawn());
+        StageUp();
+    }
+
+    public void ReStart()
+    {
+        StartCoroutine(MonsterSpawn());
+        StartCoroutine(ItemSpawn());
+        StartCoroutine(Spawn());
     }
 
     public void StageUp()
     {
-        if(StageManager.i.CurrentStage == 2)
+        max = tmp_max;
+        min = tmp_min;
+        switch(StageManager.i.CurrentStage)
         {
-            maxX *= 3;
-            minX *= 3;
-            maxZ *= 3;
-            minZ *= 3;
-        }
-        else if(StageManager.i.CurrentStage == 3)
-        {
-            maxX *= 4;
-            minX *= 4;
-            maxZ *= 4;
-            minZ *= 4;
+            case 2:
+                max *= 3;
+                min *= 3;
+                break;
+            case 3:
+                max *= 4;
+                min *= 4;
+                break;
+            default:
+                break;
         }
     }
 
@@ -61,8 +73,8 @@ public class SpawnManger : MonoBehaviour
         while (GameManager.i.isGameOver)
         {
             yield return new WaitForSeconds(spawnItemDelay);
-            GameObject point = Instantiate(itemPrefabs[Random.Range(0,itemPrefabs.Length)]);
-            point.transform.position = RandomPosition();
+            GameObject item = Instantiate(itemPrefabs[Random.Range(0,itemPrefabs.Length)]);
+            item.transform.position = RandomPosition();
         }
     }
 
@@ -85,8 +97,8 @@ public class SpawnManger : MonoBehaviour
 
     Vector3 RandomPosition()
     {
-        float ranX = Mathf.Floor(Random.Range(minX, maxX) * 10f) / 10f;
-        float ranZ = Mathf.Floor(Random.Range(minX, maxX) * 10f) / 10f;
+        float ranX = Mathf.Floor(Random.Range(min, max) * 10f) / 10f;
+        float ranZ = Mathf.Floor(Random.Range(min, max) * 10f) / 10f;
 
         return new Vector3(ranX, 0.3f, ranZ);
     }
