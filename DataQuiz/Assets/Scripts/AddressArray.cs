@@ -15,11 +15,21 @@ public class AddressArray
             _arr[cur] = args[cur];
     }
 
-    public Data Search(int idx, string val)
+    public string GetData(int index)
+    {
+        return _arr[index].ToString();
+    }
+
+    public int Length()
+    {
+        return _arr.Length;
+    }
+
+    public Data Search(string val)
     { 
         for(int i = 0;i< _arr.Length; i++)
         {
-            if (_arr[i].SearchData(idx, val))
+            if (val.Equals(_arr[i]._name) || val.Equals(_arr[i]._address))
             {
                 return _arr[i];   
             }
@@ -62,6 +72,13 @@ public class AddressArray
         }
         _arr = tmp;
     }
+
+    public void RemoveAll()
+    {
+        Data[] tmp = new Data[0];
+        _arr = tmp;
+    }
+
     public void ShowInfo()
     {
         string res = "";
