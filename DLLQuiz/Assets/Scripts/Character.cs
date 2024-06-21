@@ -28,5 +28,8 @@ public class Character : MonoBehaviour
         get { return _name; }
     }
 
-    
+    public override string ToString()
+    {
+        return $"이름 : {_name}\n체력 : {_hp}\n공격력 : {_atk}\n방어력 : {_def}";
+    }
 }

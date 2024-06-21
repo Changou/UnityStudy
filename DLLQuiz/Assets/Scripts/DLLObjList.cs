@@ -15,7 +15,7 @@ public class DLLObjList : MonoBehaviour
     //----------------------------------
     //  ¿øº» ÇÁ¸®ÆÕ..
     [SerializeField]
-    GameObject _prefabSrc;
+    GameObject[] _prefabSrc;
 
     DLList _list = new DLList();
 
@@ -43,7 +43,7 @@ public class DLLObjList : MonoBehaviour
     
     GameObject CreateGObj()
     {
-        GameObject tmp = Instantiate(_prefabSrc);
+        GameObject tmp = Instantiate(_prefabSrc[Random.Range(0,_prefabSrc.Length)]);
 
         return tmp;
     }
@@ -99,12 +99,14 @@ public class DLLObjList : MonoBehaviour
     void BuildPosition()
     {
         DLList.DoubleNode curNode = _list._HeadNode;
+        curNode._data.transform.rotation = Quaternion.Euler(0, 180, 0);
         curNode._data.transform.position = _startPos;
         curNode = curNode._next;
         int num = 1;
 
         while (curNode != null)
         {
+            curNode._data.transform.rotation = Quaternion.Euler(0, 180, 0);
             if (num % 5 == 0)
             {
                 curNode._data.transform.position = new Vector3(0, curNode._prev._data.transform.position.y, 0) + _rowOffset;
@@ -113,7 +115,6 @@ public class DLLObjList : MonoBehaviour
                 curNode._data.transform.position = curNode._prev._data.transform.position + _offset;
             curNode = curNode._next;
             ++num;
-            
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEditor.Hardware;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,14 +11,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] DLLObjList _list;
 
     [SerializeField] InputField _Removeinput;
+
+    [Header("º±≈√")]
+    [SerializeField] GameObject _collect;
+    [SerializeField] GameObject _choose;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             _list.SetCurNodeBack();
@@ -32,6 +39,23 @@ public class GameManager : MonoBehaviour
                 _list.SetCurNodeToEnd();
             ShowCurNode();
         }
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            ChooseNode();
+        }
+    }
+
+    public void ChooseNode()
+    {
+        DLList.DoubleNode curNode = _list._CurNode;
+        if (curNode == null)
+        {
+            return;
+        }
+        _choose.SetActive(true);
+        _choose.transform.parent = curNode._data.transform;
+        _choose.transform.localPosition = new Vector3(0, 2.7f, 1);
+        Debug.Log(curNode._data.GetComponent<Character>().ToString());
     }
 
     public void OnRemove()
@@ -53,18 +77,8 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-        int idx = 0;
-        while(idx < _list._Count)
-        {
-            DLList.DoubleNode tmp = _list.GetNode(idx);
-            SetColor(tmp._data.GetComponentInChildren<Renderer>(), Color.white);
-            ++idx;
-        }
-        if(curNode != null)
-        {
-            SetColor(curNode._data.GetComponent<Renderer>(), Color.red);
-        }
+        _collect.SetActive(true);
+        _collect.transform.parent = curNode._data.transform;
+        _collect.transform.localPosition = new Vector3(0, 1, 0);
     }
-
-    public void SetColor( Renderer rnd, Color color) { rnd.material.color = color; }
 }
