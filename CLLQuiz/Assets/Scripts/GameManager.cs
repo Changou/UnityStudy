@@ -19,11 +19,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text _TurnCount;
     [SerializeField] GameObject _TurnBtn;
     [SerializeField] GameObject _StopBtn;
+    [SerializeField] Text _GameOverT;
 
     bool _isTurn = false;
     bool _isTurnOver = true;
     float point = 0;
-    int _TurnCnt = 5;
+    [SerializeField] int _TurnCnt = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -43,10 +44,18 @@ public class GameManager : MonoBehaviour
         CLList<GameObject>.CircleNode curNode = _list._CurNode;
         point += curNode._data.GetComponent<RulletObj>()._Point;
         _ScoreT.text = "점수 : " + point;
-        --_TurnCnt;
-        _TurnCount.text = "남은 횟수 : " + _TurnCnt;
         _isTurnOver = true;
         _TurnBtn.SetActive(true);
+        if(_TurnCnt == 0)
+        {
+            GameOver();
+        }
+    }
+
+    void GameOver()
+    {
+        _GameOverT.gameObject.SetActive(true);
+        _GameOverT.text = "GAME OVER\n점수 : " + point;
     }
 
     public void OffTurnBtn()
@@ -58,8 +67,10 @@ public class GameManager : MonoBehaviour
 
     public void OnTurnBtn()
     {
-        if (_isTurnOver)
+        if (_isTurnOver && _TurnCnt > 0)
         {
+            --_TurnCnt;
+            _TurnCount.text = "남은 횟수 : " + _TurnCnt;
             _isTurn = true;
             _isTurnOver = false;
             _StopBtn.SetActive(true);
