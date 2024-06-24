@@ -104,6 +104,44 @@ public class DLList
         return null;
     }
 
+    public void Insert(int insertIdx, GameObject val)
+    {
+        //  데이터가 없거나
+        //  범위를 넘어선 경우..
+        //  -   추가로 처리..
+        if (_head == null ||
+            insertIdx >= _Count)
+        {
+            Append(val);
+            return;
+        }
+
+        //  데이터가 있는 경우..
+        if (insertIdx == 0)
+        {
+            //  헤드를 교체..
+            DoubleNode newNode = new DoubleNode(val);
+            _head._prev = newNode;
+            newNode._next = _head;
+            _head = newNode;
+            _currentNode = _head;
+            ++_count;
+
+        }// if (insertIdx == 0)
+        else
+        {
+            //  인덱스 앞 노드를 찾아서
+            //  뒤에 연결..
+            DoubleNode prevNode = GetNode(insertIdx - 1);
+            if (prevNode != null)
+            {
+                _currentNode = prevNode.Append(val);
+                ++_count;
+            }
+
+        }// ~if (insertIdx == 0)
+
+    }
     public DoubleNode GetNode(string name)
     {
         if (_isEmpty) return null;
