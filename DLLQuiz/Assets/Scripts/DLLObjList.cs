@@ -26,6 +26,9 @@ public class DLLObjList : MonoBehaviour
     public DLList.DoubleNode GetNode(int idx) { return _list.GetNode(idx); }
    
     public bool _IsValidCurNode { get { return _list.IsValidCurNode(); } }
+
+    
+
     public void SetCurNodeNext()
     {
         if (_IsValidCurNode)
@@ -40,12 +43,21 @@ public class DLLObjList : MonoBehaviour
     public void SetCurNodeToEnd() { _list.SetCurNodeToEnd(); }
 
     public GameObject GetCurData() { return _list._CurData; }
-    
+
     GameObject CreateGObj()
     {
         GameObject tmp = Instantiate(_prefabSrc[Random.Range(0,_prefabSrc.Length)]);
 
         return tmp;
+    }
+
+    public void Insert(int idx)
+    {
+        GameObject tmp = CreateGObj();
+
+        _list.Insert(idx, tmp);
+
+        BuildPosition();
     }
 
     public void Remove(string name)

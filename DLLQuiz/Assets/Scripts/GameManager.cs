@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.Hardware;
 using UnityEngine;
@@ -13,8 +14,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] InputField _Removeinput;
 
     [Header("º±≈√")]
-    [SerializeField] GameObject _collect;
     [SerializeField] GameObject _choose;
+
+    [Header("ª¿‘")]
+    [SerializeField] InputField _InsertInput;
 
     // Start is called before the first frame update
     void Start()
@@ -27,22 +30,33 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            _list.SetCurNodeBack();
-            if (_list._IsValidCurNode == false)
-                _list.SetCurNodeToStart();
-            ShowCurNode();
+            LeftShift();
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            _list.SetCurNodeNext();
-            if (_list._IsValidCurNode == false)
-                _list.SetCurNodeToEnd();
-            ShowCurNode();
+            RightShift();
         }
         if (Input.GetKeyDown(KeyCode.Return))
         {
             ChooseNode();
         }
+    }
+
+    public void LeftShift()
+    {
+        _list.SetCurNodeBack();
+        if (_list._IsValidCurNode == false)
+            _list.SetCurNodeToStart();
+        
+        ShowCurNode();
+    }
+
+    public void RightShift()
+    {
+        _list.SetCurNodeNext();
+        if (_list._IsValidCurNode == false)
+            _list.SetCurNodeToEnd();
+        ShowCurNode();
     }
 
     public void ChooseNode()
@@ -70,6 +84,12 @@ public class GameManager : MonoBehaviour
         ShowCurNode();
     }
 
+    public void OnInsert()
+    {
+        _list.Insert(int.Parse(_InsertInput.text));
+        ShowCurNode();
+    }
+
     public void ShowCurNode()
     {
         DLList.DoubleNode curNode = _list._CurNode;
@@ -77,8 +97,14 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-        _collect.SetActive(true);
-        _collect.transform.parent = curNode._data.transform;
-        _collect.transform.localPosition = new Vector3(0, 1, 0);
+        int idx = 0;
+        while (idx < _list._Count)
+        {
+            DLList.DoubleNode tmp = _list.GetNode(idx);
+            tmp._data.GetComponent<Animator>().SetBool("IsChoose", false);
+            ++idx;
+        }
+        if (curNode != null)
+            curNode._data.GetComponent<Animator>().SetBool("IsChoose", true);
     }
 }

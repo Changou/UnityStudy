@@ -8,6 +8,7 @@ public class Character : MonoBehaviour
     [SerializeField] string[] _RandomName;
 
     [SerializeField] TextMeshPro _text;
+    [SerializeField] TextMeshPro _Statustext;
 
     string _name;
     int _hp;
@@ -21,6 +22,7 @@ public class Character : MonoBehaviour
         _atk = Random.Range(1, 10);
         _def = Random.Range(1, 10);
         _text.text = _name;
+        _Statustext.text = ToString();
     }
 
     public string _Name
@@ -30,6 +32,6 @@ public class Character : MonoBehaviour
 
     public override string ToString()
     {
-        return $"이름 : {_name}\n체력 : {_hp}\n공격력 : {_atk}\n방어력 : {_def}";
+        return $"Name : {_name}\nHP : {_hp}\nATK : {_atk}\nDEF : {_def}";
     }
 }
