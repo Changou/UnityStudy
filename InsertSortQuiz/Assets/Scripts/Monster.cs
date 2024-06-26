@@ -1,0 +1,57 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+enum MONSTER_TYPE
+{
+    CACTUS,
+    MUSHROOM,
+    SLIME,
+    ZOMBIE,
+    TURTLE
+}
+
+public class Monster : MonoBehaviour
+{
+    [SerializeField] float monSpeed;
+    [SerializeField] MONSTER_TYPE monType;
+
+    Animator anim;
+
+    bool isDie = false;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(!isDie)
+            transform.position += transform.forward * monSpeed * Time.deltaTime;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Bullet"))
+        {
+            Destroy(other.gameObject);
+            isDie = true;
+            anim.SetTrigger("IsDie");
+            gameObject.layer = 6;
+            GameManager.i.KillCount((int)monType);
+        }
+        if (other.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void Down()
+    {
+        Destroy(gameObject);
+    }
+    
+}
