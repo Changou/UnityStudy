@@ -13,10 +13,12 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] int maxX;
     [SerializeField] int spawnZ;
 
-    // Start is called before the first frame update
-    void Start()
+    Coroutine spawn;
+    private void Start()
     {
-        StartCoroutine(Spawn());
+        GameManager.i._event = () => {
+            spawn = StartCoroutine(Spawn());
+        };
     }
 
     IEnumerator Spawn()
@@ -27,6 +29,11 @@ public class SpawnManager : MonoBehaviour
             GameObject monster = Instantiate(monsterPrefab[Random.Range(0, monsterPrefab.Length)]);
             monster.transform.position = new Vector3(Random.Range(minX, maxX + 1), 0, spawnZ);
             monster.transform.rotation = Quaternion.Euler(0, -180f, 0);
+            if(Random.Range(1,6) == 1)
+            {
+                monster.transform.localScale = Vector3.one * 2;
+                monster.GetComponent<Monster>().isSpeacial = true;
+            }
         }
     }
 }

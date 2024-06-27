@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.i.isGameOver)
+        if (GameManager.i.dontShoot)
         {
             LookMouseCursor();
         }
@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
             transform.forward = mouseDir;
             if(Input.GetMouseButtonDown(0))
             {
+                transform.GetComponent<Animator>().SetTrigger("IsShoot");
                 GameObject bullet = Instantiate(bulletPrefab);
                 bullet.transform.position = transform.forward + new Vector3(0,0.7f,0);
                 bullet.transform.forward = mouseDir;
