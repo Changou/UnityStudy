@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Sphere : MonoBehaviour
+public abstract class Character : MonoBehaviour
 {
     [SerializeField]
     string _name;
@@ -18,14 +18,9 @@ public class Sphere : MonoBehaviour
     int _attack;
     public int _Attack => _attack;
 
-    [SerializeField]
-    TextMeshPro _tmpName;
-    [SerializeField]
-    TextMeshPro _tmpLv;
+
     [SerializeField]
     TextMeshPro _tmpHp;
-    [SerializeField]
-    TextMeshPro _tmpAttack;
 
     public void SetData(string name, int lv, int hp, int attack)
     {
@@ -34,10 +29,8 @@ public class Sphere : MonoBehaviour
         _hp = hp;
         _attack = attack;
 
-        _tmpName.text = name;
-        _tmpLv.text = lv.ToString();
         _tmpHp.text = hp.ToString();
-        _tmpAttack.text = attack.ToString();
-
     }
+
+    public abstract void Motion();
 }
