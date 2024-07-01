@@ -146,13 +146,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 50597825}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.2, z: -0.47}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0.462}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &279276830
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,13 +238,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 279276830}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.030153697, y: 0.96984637, z: -0.17101005, w: 0.17101015}
-  m_LocalPosition: {x: -0.702, y: 0.608, z: 0.78}
+  m_LocalRotation: {x: 0.17101005, y: -0.17101015, z: 0.030153697, w: 0.96984637}
+  m_LocalPosition: {x: 0.571, y: 0.473, z: -0.643}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 20, y: 160, z: 0}
+  m_LocalEulerAnglesHint: {x: 20, y: -20, z: 0}
 --- !u!1 &743626575
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,7 +400,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bff65f42a314238429c2f1192eeb54e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -662,14 +662,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7908199148823286850}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3363898649083754249}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &301852068333131254
 GameObject:
   m_ObjectHideFlags: 0
@@ -8724,10 +8724,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41ffbb943f689d045868f74773f85341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 4288623564262600610, guid: bbfc36613cdee7742becf2029c464251, type: 3}
+  prefab: {fileID: 1821495839132407554, guid: bbfc36613cdee7742becf2029c464251, type: 3}
   bulletSpawnPosition: {fileID: 50597826}
-  bulletSpeed: 100
-  _lifeBullet: 3
+  bulletSpeed: 500
+  bulletAccuracy: 6
 --- !u!33 &7923579113629288530
 MeshFilter:
   m_ObjectHideFlags: 0

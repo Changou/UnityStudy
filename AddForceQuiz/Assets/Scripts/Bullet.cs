@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.AddForce(-transform.forward * bulletSpeed);
+        rb.AddForce(transform.GetChild(0).GetChild(1).right * -bulletSpeed);
         Destroy(gameObject, _lifebullet);
     }
 }
