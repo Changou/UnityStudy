@@ -13,7 +13,6 @@ public class Driver : MonoBehaviour
     [SerializeField] Text _Count;
     [SerializeField] GameObject overT;
 
-
     [Header("카메라"), SerializeField] GameObject _Camera;
 
     [SerializeField] bool isMove = false;
@@ -46,9 +45,6 @@ public class Driver : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !isMove && !isGameOver)
         {
             currentV = Input.mousePosition;
-
-            //GameObject tmp = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            //tmp.transform.position = currentV;
         }
         if (Input.GetMouseButton(0) && !isMove)
         {
@@ -161,14 +157,8 @@ public class Driver : MonoBehaviour
         driveCnt++;
         _Count.text = "남은 횟수 : " + driveCnt;
 
-        Vector3 dir = new Vector3();
-        if (driverDir.normalized.x > 0.2)
-            dir = transform.right;
-        else if (driverDir.normalized.x < -0.2f)
-            dir = -transform.right;
-        else dir = Vector3.zero;
+        rb.AddRelativeForce((driverDir.normalized + new Vector3(0, isGreen? 0 : 1f, 0)) * (_Power * 1.5f));
 
-        rb.AddForce(((transform.forward + dir) + new Vector3(0, isGreen ? 0 : 1, 0)) * (_Power * 1.5f));
         Cancel();
         StartCoroutine(StopBallCheck());
     }
