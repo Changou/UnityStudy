@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,24 +8,42 @@ public class Driver : MonoBehaviour
 {
     [SerializeField] float _Power = 0;
     [SerializeField] Vector3 offset;
+    [SerializeField] Transform target;
+    [SerializeField] Text _StatusT;
+    [SerializeField] Text _Count;
+    [SerializeField] GameObject overT;
+
+
+    [Header("카메라"), SerializeField] GameObject _Camera;
 
     [SerializeField] bool isMove = false;
-    bool isCameraFollow = false;
+    bool isCameraFollow;
+    bool isGreen = false;
+    bool isGameOver = false;
 
     [SerializeField] Vector3 currentV;
     [SerializeField] Vector3 driverDir;
     Rigidbody rb;
+
+    string currentG;
+
+    int parCount = 4;
+    int maxCount = 6;
+    [SerializeField] int driveCnt = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         driverDir = Vector3.zero;
+        isCameraFollow = true;
+        _StatusT.text = "";
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !isMove)
+        if (Input.GetMouseButtonDown(0) && !isMove && !isGameOver)
         {
             currentV = Input.mousePosition;
 
@@ -37,11 +56,10 @@ public class Driver : MonoBehaviour
             
 
             _Power = Vector3.Distance(point, currentV);
-            
+
             driverDir = new Vector3(point.x - currentV.x, 0, point.y - currentV.y);
-            Debug.Log(driverDir.normalized);
         }
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && !isMove && !isGameOver)
         {
             if(_Power > 100)
             {
@@ -52,13 +70,27 @@ public class Driver : MonoBehaviour
         }
         if (isCameraFollow)
         {
-            Camera.main.transform.position = transform.position + offset;
+            _Camera.transform.position = transform.position;
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Green"))
+        {
+            isGreen = true;
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        currentG = collision.gameObject.tag;
     }
 
     void CameraSetting()
     {
-
+        Vector3 dir = target.transform.position - _Camera.transform.position;
+        _Camera.transform.rotation = Quaternion.LookRotation(dir).normalized;
     }
 
     IEnumerator StopBallCheck()
@@ -72,10 +104,51 @@ public class Driver : MonoBehaviour
                 rb.isKinematic = true;
                 rb.isKinematic = false;
                 isMove = false;
-                isCameraFollow = false;
-                Debug.Log("멈춤");
+                transform.LookAt(target);
+                CameraSetting();
+                if (currentG.Equals("Hall") || driveCnt == maxCount)
+                {
+                    GameClear();
+                }
+                else
+                    StartCoroutine(TextOn());
             }
         }
+    }
+
+    void GameClear()
+    {
+        isGameOver = true;
+        overT.SetActive(true);
+        switch(parCount - driveCnt)
+        {
+            case 0:
+                overT.transform.GetChild(1).GetComponent<Text>().text = "파";
+                break;
+            case 1:
+                overT.transform.GetChild(1).GetComponent<Text>().text = "버디";
+                break;
+            case 2:
+                overT.transform.GetChild(1).GetComponent<Text>().text = "이글";
+                break;
+            case 3:
+                overT.transform.GetChild(1).GetComponent<Text>().text = "홀인원";
+                break;
+            case -1:
+                overT.transform.GetChild(1).GetComponent<Text>().text = "보기";
+                break;
+            default:
+                overT.transform.GetChild(1).GetComponent<Text>().text = "더블보기";
+                break;
+        }
+    }
+
+    IEnumerator TextOn()
+    {
+        _StatusT.gameObject.SetActive(true);
+        _StatusT.text = $"지형은 {currentG}, 남은거리는 {Vector3.Distance(transform.position, target.position)}m";
+        yield return new WaitForSeconds(2f);
+        _StatusT.gameObject.SetActive(false);
     }
 
     void Cancel()
@@ -85,9 +158,17 @@ public class Driver : MonoBehaviour
 
     void DriverShot()
     {
-        
-        rb.AddForce(driverDir.normalized * _Power);
-        isCameraFollow = true;
+        driveCnt++;
+        _Count.text = "남은 횟수 : " + driveCnt;
+
+        Vector3 dir = new Vector3();
+        if (driverDir.normalized.x > 0.2)
+            dir = transform.right;
+        else if (driverDir.normalized.x < -0.2f)
+            dir = -transform.right;
+        else dir = Vector3.zero;
+
+        rb.AddForce(((transform.forward + dir) + new Vector3(0, isGreen ? 0 : 1, 0)) * (_Power * 1.5f));
         Cancel();
         StartCoroutine(StopBallCheck());
     }

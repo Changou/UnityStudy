@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ball
+  - Green
+  - Fairway
+  - Rough
+  - Bunker
+  - Hall
   layers:
   - Default
   - TransparentFX
