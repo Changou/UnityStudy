@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
         if(curNode != null )
         {
             _choose.SetActive(true);
-            _choose.transform.parent = curNode._data.transform;
+            _choose.transform.SetParent(curNode._data.transform);
             _choose.transform.localPosition = new Vector3(0, 0, 0.1f);
         }
     }

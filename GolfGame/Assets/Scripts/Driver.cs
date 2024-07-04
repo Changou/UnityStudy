@@ -155,9 +155,9 @@ public class Driver : MonoBehaviour
     void DriverShot()
     {
         driveCnt++;
-        _Count.text = "³²Àº È½¼ö : " + driveCnt;
+        _Count.text = "Ä£ È½¼ö : " + driveCnt;
 
-        rb.AddRelativeForce((driverDir.normalized + new Vector3(0, isGreen? 0 : 1f, 0)) * (_Power * 1.5f));
+        rb.AddRelativeForce((driverDir.normalized + new Vector3(0, isGreen? 0 : 1f, 0)) * (_Power * 2f));
 
         Cancel();
         StartCoroutine(StopBallCheck());

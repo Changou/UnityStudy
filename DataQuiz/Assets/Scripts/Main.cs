@@ -59,6 +59,7 @@ public class Main : MonoBehaviour
             GameObject infoT = Instantiate(preFabT);
             infoT.transform.SetParent(info.transform.GetChild(0).transform);
             infoT.GetComponent<Text>().text = addArr.GetData(i);
+            infoT.transform.localScale = Vector3.one;
         }
         StartCoroutine(StateText("목록이 활성화 되었습니다."));
     }

@@ -44,7 +44,7 @@ public class Item : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            SSL.i.Add(this.gameObject);
+            SSL.i.Add(gameObject);
             StopCoroutine(_destroy);
         }
     }

@@ -2555,10 +2555,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9633e2ab985a82041a2797929291d6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 422644712}
-  offsetX: 0
-  offsetY: 8
-  offsetZ: -4.71
+  offset: {x: 0, y: 8, z: -4.71}
+  target: {fileID: 422644717}
 --- !u!1 &1063477633
 GameObject:
   m_ObjectHideFlags: 0
@@ -3835,7 +3833,7 @@ MonoBehaviour:
   _ground: {fileID: 76977203}
   _stageG2: {fileID: 1816386867}
   _stageG3: {fileID: 3753270}
-  currentStage: 3
+  currentStage: 2
   stageT: {fileID: 1808021124}
 --- !u!4 &1866029273
 Transform:
