@@ -10,12 +10,20 @@ public class Monster : MonoBehaviour, ICollide
 
     [Header("[ Å¸°Ù ]"), SerializeField] Transform _target;
 
+    Coroutine _FreezeCor;
+    Color _DefaultColor;
+
     bool _Freezing = false;
 
     // Start is called before the first frame update
     private void Awake()
     {
         _target = GameObject.Find("Snake").transform;
+    }
+
+    void Start()
+    {
+        _DefaultColor = transform.GetComponent<Renderer>().material.color;
     }
 
     // Update is called once per frame
@@ -28,17 +36,22 @@ public class Monster : MonoBehaviour, ICollide
         MoveMonster();
     }
 
-    public void Freeze()
+    public void Freeze(float time)
     {
-        StartCoroutine(FreezeTime());
+        if (_FreezeCor != null)
+            StopCoroutine(FreezeTime(time));
+
+        _FreezeCor = StartCoroutine(FreezeTime(time));
     }
 
-    IEnumerator FreezeTime()
+    IEnumerator FreezeTime(float time)
     {
         _Freezing = true;
         transform.GetComponent<Renderer>().material.color = Color.blue;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(time);
         _Freezing = false;
+        transform.GetComponent<Renderer>().material.color = _DefaultColor;
+        _FreezeCor = null;
     }
 
     void MoveMonster()
@@ -51,5 +64,11 @@ public class Monster : MonoBehaviour, ICollide
             Quaternion.LookRotation(dir), _rotSpeed * Time.deltaTime);
     }
 
-    public void Collide(Snake snake) { snake.Dead(); }
+    public void Collide(Snake snake) 
+    {
+        if (snake._IsPower)
+            Destroy(gameObject);
+        else
+            snake.Dead(); 
+    }
 }

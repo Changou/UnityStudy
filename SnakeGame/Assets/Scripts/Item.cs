@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Item : MonoBehaviour, ICollide
 {
+    [Header("[효과 시간]"), SerializeField] protected float _EffectTime;
+
     private void Awake()
     {
-        Destroy(gameObject, 3f);
+        Destroy(gameObject, 5f);
     }
 
-    public virtual void Collide(Snake snake) { }
+    public virtual void Collide(Snake snake) 
+    {
+        Destroy(gameObject);
+    }
 }

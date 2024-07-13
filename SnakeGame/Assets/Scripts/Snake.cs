@@ -10,6 +10,15 @@ public class Snake : MonoBehaviour
     protected bool _isDead = false;
     public bool _IsDead => _isDead;
 
+    protected bool _isPower = false;
+    public bool _IsPower => _isPower;
+
+    Coroutine _PowerCor;
+    Coroutine _SpeedCor;
+
+    Renderer _ThisColor;
+    Color _DefaultColor;
+
     [Header("[ 部府 祸 ]"), SerializeField]
     Color[] _tailColor;
     [Header("[ 部府 橇府普 ]"), SerializeField]
@@ -22,6 +31,12 @@ public class Snake : MonoBehaviour
     private void Awake()
     {
         InitData();
+        _ThisColor = GetComponent<Renderer>();
+    }
+
+    private void Start()
+    {
+        _DefaultColor = transform.GetComponent<Renderer>().material.color;
     }
 
     public virtual void AddTail()
@@ -99,5 +114,46 @@ public class Snake : MonoBehaviour
 
         iTmp.Collide(this);
     }
+
+    public void OnSpeed(float time)
+    {
+        if (_SpeedCor != null)
+            StopCoroutine(SpeedTime(time));
+        _SpeedCor = StartCoroutine(SpeedTime(time));
+    }
+
+    IEnumerator SpeedTime(float time)
+    {
+        float _DefaultSpeed = _speedMove;
+        _speedMove = 5f;
+        ColorChange(Color.green);
+        yield return new WaitForSeconds(time);
+        _speedMove = _DefaultSpeed;
+        ColorChange(_DefaultColor);
+        _SpeedCor = null;
+    }
+
+    public void OnPower(float time)
+    {
+        if (_PowerCor != null)
+            StopCoroutine(PowerTime(time));
+        _PowerCor = StartCoroutine(PowerTime(time));
+    }
+
+    IEnumerator PowerTime(float time)
+    {
+        _isPower = true;
+        ColorChange(Color.yellow);
+        yield return new WaitForSeconds(time);
+        _isPower = false;
+        ColorChange(_DefaultColor);
+        _PowerCor = null;
+    }
+
+    void ColorChange(Color color)
+    {
+        _ThisColor.material.color = color;
+    }
+
     public virtual void Dead() { }
 }

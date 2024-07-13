@@ -2539,9 +2539,9 @@ MonoBehaviour:
   _MonPrefab: {fileID: 4577167577787546108, guid: eebf26aa16eb04349b58b2474f7152fc, type: 3}
   _MSpawnDelay: 5
   _ItemPrefabs:
-  - {fileID: 1374062075720453242, guid: 56ab194dc1955234cafe95318aed587c, type: 3}
-  - {fileID: 1374062075720453242, guid: 44b243a005bf09345be2b0efe82539e3, type: 3}
-  - {fileID: 1374062075720453242, guid: 0b78e140895d9464d8eefda98b8cc597, type: 3}
+  - {fileID: 92539234992279772, guid: cab57b2d1e110914aa04677e93dfa985, type: 3}
+  - {fileID: 3922058785791774500, guid: 2ecf13dc2a8c3f543a8c17f5e80a736f, type: 3}
+  - {fileID: 2227808183379871935, guid: 4fdb9d71434ac594081fa3efee215ff4, type: 3}
   _ISpawnDelay: 3
 --- !u!4 &1852514634
 Transform:

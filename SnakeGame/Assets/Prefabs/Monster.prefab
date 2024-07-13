@@ -401,6 +401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speedMove: 1.5
   _rotSpeed: 100
+  _FreezingTime: 3
   _target: {fileID: 0}
 --- !u!1 &5390299312976250966
 GameObject:

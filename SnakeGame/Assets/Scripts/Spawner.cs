@@ -22,7 +22,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] GameObject[] _ItemPrefabs;
     [SerializeField] float _ISpawnDelay;
 
-    List<Monster> monsters = new List<Monster>();
+    List<GameObject> monsters = new List<GameObject>();
 
     private void Awake()
     {
@@ -36,9 +36,9 @@ public class Spawner : MonoBehaviour
         StartCoroutine(SpawnItem());
     }
 
-    public void ListMonster()
+    public void ListMonster(float time)
     {
-        foreach(Monster m in monsters) { m.Freeze(); }
+        foreach(GameObject m in monsters) { m.GetComponent<Monster>().Freeze(time); }
     }
 
     IEnumerator SpawnItem()
@@ -47,8 +47,8 @@ public class Spawner : MonoBehaviour
         {
             yield return new WaitForSeconds(_ISpawnDelay);
             Vector3 pos = new Vector3(Random.Range(-_posX, _posX), 0, Random.Range(-_posZ, _posZ));
-            GameObject monster = Instantiate(_ItemPrefabs[Random.Range(0,_ItemPrefabs.Length)]);
-            monster.transform.position = pos;
+            GameObject item = Instantiate(_ItemPrefabs[Random.Range(0,_ItemPrefabs.Length)]);
+            item.transform.position = pos;
         }
     }
 
@@ -60,7 +60,7 @@ public class Spawner : MonoBehaviour
             Vector3 pos = new Vector3(Random.Range(-_posX, _posX), 0, Random.Range(-_posZ, _posZ));
             GameObject monster = Instantiate(_MonPrefab);
             monster.transform.position = pos;
-            monsters.Add(monster.GetComponent<Monster>());
+            monsters.Add(monster);
         }
     }
 }
