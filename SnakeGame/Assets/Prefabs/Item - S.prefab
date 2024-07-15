@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 5839488707378142201}
   - component: {fileID: 3799016648570214094}
   - component: {fileID: 583662167989712207}
+  - component: {fileID: 4101672630999192095}
   - component: {fileID: 5591940209775412325}
-  - component: {fileID: 1482563312393221802}
   m_Layer: 10
   m_Name: Item - Speed
   m_TagString: Untagged
@@ -108,6 +108,20 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4101672630999192095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2166144535164012212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3990bc69fe21d346b866c8fa3831624, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _EffectTime: 3
+  obj: {fileID: 2227808183379871935}
 --- !u!95 &5591940209775412325
 Animator:
   serializedVersion: 5
@@ -129,19 +143,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1482563312393221802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2166144535164012212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3990bc69fe21d346b866c8fa3831624, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _EffectTime: 3
 --- !u!1 &2227808183379871935
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,7 +277,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}

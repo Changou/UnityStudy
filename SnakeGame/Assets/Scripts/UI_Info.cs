@@ -19,4 +19,11 @@ public class UI_Info : MonoBehaviour
         string time = "Time : {0:0} : {1:0} : {2:00.0}";
         _playTime.text = string.Format(time, hour, min, sec);
     }
+    [Header("[ 스테이지 ]"), SerializeField]
+    TextMeshProUGUI _stage;
+
+    public void Set_Stage()
+    {
+        _stage.text = "Stage : " + StageManager.i._CurrentStage;
+    }
 }

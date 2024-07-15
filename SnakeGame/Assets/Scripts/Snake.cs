@@ -32,6 +32,7 @@ public class Snake : MonoBehaviour
     {
         InitData();
         _ThisColor = GetComponent<Renderer>();
+        
     }
 
     private void Start()
@@ -89,7 +90,11 @@ public class Snake : MonoBehaviour
 
     protected virtual void MoveHead()
     {
-        float amount = _speedMove * Time.deltaTime;
+        float amount;
+        if (StageManager.i._CurrentStage == 3)
+            amount = (_speedMove + 1) * Time.deltaTime;
+        else
+            amount = _speedMove * Time.deltaTime;
         transform.Translate(Vector3.forward * amount);
 
         amount = Input.GetAxis("Horizontal") * _speedRot;

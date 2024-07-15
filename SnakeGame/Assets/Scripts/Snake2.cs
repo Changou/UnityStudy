@@ -10,8 +10,8 @@ public class Snake2 : Snake
     public override void Dead()
     {
         _isDead = true;
-
-        _uiGameOver?.gameObject.SetActive(true);
+        if(!GameManager.i._IsGameOver)
+            _uiGameOver?.gameObject.SetActive(true);
     }
 
 }

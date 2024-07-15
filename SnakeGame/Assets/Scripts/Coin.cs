@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 interface ICollide
 {
@@ -17,8 +18,9 @@ public class Coin : MonoBehaviour , ICollide
 
     void Move_Random()
     {
-        float x = Random.Range(-9f, 9f);
-        float z = Random.Range(-4f, 4f);
+        Debug.Log(Spawner.i._posX);
+        float x = Random.Range(-Spawner.i._posX, Spawner.i._posX);
+        float z = Random.Range(-Spawner.i._posZ, Spawner.i._posZ);
 
         transform.position = new Vector3(x, 0, z);
     }

@@ -34,6 +34,11 @@ public class Spawner : MonoBehaviour
     {
         StartCoroutine(SpawnMon());
         StartCoroutine(SpawnItem());
+        if(StageManager.i._CurrentStage == 3)
+        {
+            _posX = 24;
+            _posZ = 18;
+        }
     }
 
     public void ListMonster(float time)

@@ -19,11 +19,11 @@ public class Snake3 : Snake2
         else
             _joyStick = _panelJoystick.GetComponent<JoyStick>();
 
-        _coin = 0;
+        _coin = 8;
     }
     protected override void MoveHead()
     {
-        if(_isMobile == false)
+        if (_isMobile == false)
             base.MoveHead();
         else
         {
@@ -44,7 +44,7 @@ public class Snake3 : Snake2
         base.AddTail();
 
         ++_coin;
-
+        GameManager.i.IsGameClear(_coin);
         _uiInfo.Set_Coin(_coin);
     }
 }

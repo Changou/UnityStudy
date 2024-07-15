@@ -134,7 +134,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -171,8 +171,8 @@ GameObject:
   - component: {fileID: 1780057871998220786}
   - component: {fileID: 8096846357702018481}
   - component: {fileID: 4574480587469678383}
-  - component: {fileID: 1079088053220880318}
   - component: {fileID: 2057525866875807230}
+  - component: {fileID: 2920852759934694911}
   m_Layer: 10
   m_Name: Item - Freeze
   m_TagString: Untagged
@@ -267,19 +267,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1079088053220880318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8568683428043271324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c32bb68a9c1bd474c9f98067b3c67a94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _EffectTime: 3
 --- !u!95 &2057525866875807230
 Animator:
   serializedVersion: 5
@@ -301,3 +288,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2920852759934694911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8568683428043271324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c32bb68a9c1bd474c9f98067b3c67a94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _EffectTime: 3
+  obj: {fileID: 92539234992279772}

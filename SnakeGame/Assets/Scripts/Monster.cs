@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Monster : MonoBehaviour, ICollide
 {
@@ -9,6 +10,8 @@ public class Monster : MonoBehaviour, ICollide
     [SerializeField] float _rotSpeed;
 
     [Header("[ Å¸°Ù ]"), SerializeField] Transform _target;
+
+    NavMeshAgent nav;
 
     Coroutine _FreezeCor;
     Color _DefaultColor;
@@ -23,17 +26,31 @@ public class Monster : MonoBehaviour, ICollide
 
     void Start()
     {
+        nav = GetComponent<NavMeshAgent>();
         _DefaultColor = transform.GetComponent<Renderer>().material.color;
+        if (StageManager.i._CurrentStage == 3)
+            nav.speed = 3;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(_target.gameObject.GetComponent<Snake>()._IsDead) return;
+        if (_target.gameObject.GetComponent<Snake>()._IsDead)
+        {
+            nav.isStopped = true;
+            return;
+        }
 
         if (_Freezing) return;
-        
-        MoveMonster();
+
+        AIMonster();
+
+        //MoveMonster();
+    }
+
+    void AIMonster()
+    {
+        nav.SetDestination(_target.position);
     }
 
     public void Freeze(float time)
@@ -48,21 +65,23 @@ public class Monster : MonoBehaviour, ICollide
     {
         _Freezing = true;
         transform.GetComponent<Renderer>().material.color = Color.blue;
+        nav.isStopped = true;
         yield return new WaitForSeconds(time);
         _Freezing = false;
         transform.GetComponent<Renderer>().material.color = _DefaultColor;
+        nav.isStopped = false;
         _FreezeCor = null;
     }
 
-    void MoveMonster()
-    {
-        float amount = _speedMove * Time.deltaTime;
-        transform.Translate(Vector3.forward * amount);
+    //void MoveMonster()
+    //{
+    //    float amount = _speedMove * Time.deltaTime;
+    //    transform.Translate(Vector3.forward * amount);
 
-        Vector3 dir = _target.position - transform.position;
-        transform.rotation = Quaternion.Lerp(transform.rotation, 
-            Quaternion.LookRotation(dir), _rotSpeed * Time.deltaTime);
-    }
+    //    Vector3 dir = _target.position - transform.position;
+    //    transform.rotation = Quaternion.Lerp(transform.rotation, 
+    //        Quaternion.LookRotation(dir), _rotSpeed * Time.deltaTime);
+    //}
 
     public void Collide(Snake snake) 
     {

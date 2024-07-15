@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager i;
 
     [Header("[ 뱀 ]"), SerializeField]
     Snake _snake;
@@ -14,7 +15,12 @@ public class GameManager : MonoBehaviour
     [Header("[ 게임 정보 UI ]"), SerializeField]
     UI_Info _uiInfo;
 
+    [Header("[ 게임 클리어 UI ]"), SerializeField]
+    UI_Clear _uiClear;
+
     float _startTime;
+
+    public bool _IsGameOver = false;
 
     void SetTime()
     {
@@ -29,8 +35,12 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        i = this;
         _uiGameOver.gameObject.SetActive(false);
+        _uiClear.gameObject.SetActive(false);
         _startTime = Time.time;
+        StageManager.i.SetStage();
+        _uiInfo.Set_Stage();
     }
 
     // Update is called once per frame
@@ -38,5 +48,18 @@ public class GameManager : MonoBehaviour
     {
         if(_snake._IsDead) return;
         SetTime();
+    }
+    public void IsGameClear(int coin)
+    {
+        if(coin >= 10)
+        {
+            _uiClear.gameObject.SetActive(true);
+            if (StageManager.i._CurrentStage == 3)
+            {
+                _uiClear.transform.GetChild(1).gameObject.SetActive(false);
+            }
+            _IsGameOver = true;
+            _snake.Dead();
+        }
     }
 }
