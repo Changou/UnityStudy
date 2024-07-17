@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4798553779705724890}
   - component: {fileID: 6209652671287856183}
   - component: {fileID: 3411621117499990026}
-  - component: {fileID: 1057383397450378191}
+  - component: {fileID: 8995313423901560236}
   m_Layer: 0
   m_Name: Owl
   m_TagString: Owl
@@ -172,7 +172,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1057383397450378191
+--- !u!114 &8995313423901560236
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,9 +181,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1037887259218436763}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9440b706a5ac5b641bd7c6eeb5a6fb06, type: 3}
+  m_Script: {fileID: 11500000, guid: 47a781eeffe625648b422a284ca93aa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _checkPt: {fileID: 0}
+  _moveSpeed: 8
+  _jumpSpeed: 12
+  _gravity: 19
+  _checkDist: 0.3
 --- !u!1 &8053995469544417655
 GameObject:
   m_ObjectHideFlags: 0
