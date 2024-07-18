@@ -8,6 +8,7 @@ TagManager:
   - Owl
   - Branch
   - Gift
+  - Coin
   layers:
   - Default
   - TransparentFX

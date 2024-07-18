@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8947892330277703801}
   - component: {fileID: 7151403740312110334}
   - component: {fileID: 8388600951002283058}
-  - component: {fileID: 6063942578369963470}
+  - component: {fileID: 8984448876684320178}
   m_Layer: 0
   m_Name: Bird
   m_TagString: Bird
@@ -268,7 +268,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6063942578369963470
+--- !u!114 &8984448876684320178
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4574116957720844630}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1c10642031a4ed4fb435af589af3215, type: 3}
+  m_Script: {fileID: 11500000, guid: 6349b035b82be0340adb277e0695fc2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5

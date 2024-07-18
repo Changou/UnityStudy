@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4125019725078523433}
   - component: {fileID: 1830954740686901960}
   - component: {fileID: 3688235566339742091}
-  - component: {fileID: -6162792412288871708}
+  - component: {fileID: -6401228532576213655}
   m_Layer: 0
   m_Name: Gift 0
   m_TagString: Gift
@@ -218,7 +218,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-6162792412288871708
+--- !u!114 &-6401228532576213655
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4262961500993749123}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 835df9876d0a638489390b7fe451fe3f, type: 3}
+  m_Script: {fileID: 11500000, guid: adf6a77cbb0c3c046b386ff3cd899b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _giftImages:
