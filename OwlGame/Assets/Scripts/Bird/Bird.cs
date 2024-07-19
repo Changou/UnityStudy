@@ -52,6 +52,8 @@ public class Bird : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager_2._Inst._IsPause) return;
+
         float amount = _speed * _dir * Time.deltaTime;
         transform.Translate(Vector3.right * amount);
 

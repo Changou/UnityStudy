@@ -75,7 +75,7 @@ public class Owl_2 : Owl
             _moveDir.y < 0 &&
             hit.collider.CompareTag("Branch"))
         {
-            _moveDir.y = _jumpSpeed;
+            _moveDir.y = _jumpSpeed + ItemManager.i._JumpEffect;
             _isBranch = true;
         }
         else
@@ -93,6 +93,9 @@ public class Owl_2 : Owl
     protected override void Update()
     {
         if (_isDead)
+            return;
+
+        if (GameManager_2._Inst._IsPause)
             return;
 
         CheckBranch();

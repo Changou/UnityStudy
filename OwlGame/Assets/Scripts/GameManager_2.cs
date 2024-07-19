@@ -14,6 +14,11 @@ public class GameManager_2 : GameManager
     bool _isMobile = false;
     public bool _IsMobile => _isMobile;
 
+    // 게임 정지
+    bool _isPause = false;
+
+    public bool _IsPause => _isPause ;
+
     //  게임 오버??
     bool _isGameOver = false;
 
@@ -37,6 +42,12 @@ public class GameManager_2 : GameManager
 
     //  올빼미 높이..
     float _owlHeight = 0f;
+
+    // 올빼미 레벨
+    int _owlLevel = 1;
+
+    [SerializeField] int _test = 1;
+
     //----------------------------
     //  [ Force To Mono ]
     //  -   최적화를 위해 Mono로 수정..
@@ -95,6 +106,12 @@ public class GameManager_2 : GameManager
         if (_myOwl.transform.position.y > _owlHeight)
             _owlHeight = _myOwl.transform.position.y;
 
+        if ((int)((_owlHeight / _test) + 1) > _owlLevel)
+        {
+            ++_owlLevel;
+            _uiManager.Show_Panel_With(UIManager.ePANEL.ENFORCE);
+            Pause();
+        }
         _score
             = Mathf.FloorToInt(_owlHeight)
                 * 100
@@ -112,13 +129,15 @@ public class GameManager_2 : GameManager
 
         _uiManager.Set_Coin(_coinCount);
 
+        _uiManager.Set_Level(_owlLevel);
+
     }// void Update_Score()
     //----------------------------
     public void Get_Coin()
     {
-        ++_coinCount;
+        _coinCount += 1 + ItemManager.i._CoinEffect;
 
-        _coinScore += 100;
+        _coinScore += 100 * ItemManager.i._CoinEffect;
     }
 
     public void Get_Gift(int giftType)
@@ -146,5 +165,15 @@ public class GameManager_2 : GameManager
         Play_AudioClip(
             _bgmGameOver,
             false);
+    }
+
+    public void UnPause()
+    {
+        _isPause = false;
+    }
+
+    public void Pause()
+    {
+        _isPause = true;
     }
 }

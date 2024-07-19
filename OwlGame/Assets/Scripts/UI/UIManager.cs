@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public enum ePANEL { INFO, INPUT, GAMEOVER }
+    public enum ePANEL { INFO, INPUT, GAMEOVER, ENFORCE }
     //------------------------
     [Header("[UI ÆÐ³Îµé]"), SerializeField]
     UIPanelBase[] _uiPanels;
@@ -14,6 +14,10 @@ public class UIManager : MonoBehaviour
     public void Set_Coin(int coin)
     {
         _uiInfo.Set_Coin(coin);
+    }
+    public void Set_Level(int level)
+    {
+        _uiInfo.Set_Level(level);
     }
     //-------------------------------
     public void Set_Height(float height)
@@ -40,8 +44,7 @@ public class UIManager : MonoBehaviour
     public UIPanel_Input.eBTTNDIR _GetDir => _uiInput._eBttnDir;
     //------------------------
     void Awake()
-    {
-
+    { 
         HideAll();
 
         _uiInfo = _uiPanels[(int)ePANEL.INFO] as UIPanel_Info;

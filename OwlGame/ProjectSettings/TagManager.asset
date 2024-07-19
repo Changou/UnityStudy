@@ -9,6 +9,7 @@ TagManager:
   - Branch
   - Gift
   - Coin
+  - Bullet
   layers:
   - Default
   - TransparentFX

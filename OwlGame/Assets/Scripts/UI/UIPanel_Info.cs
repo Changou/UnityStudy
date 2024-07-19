@@ -40,4 +40,10 @@ public class UIPanel_Info : UIPanelBase
     {
         _textCoin.text = score.ToString();
     }
+    [Header("[ ·¹º§ ]"), SerializeField]
+    TextMeshProUGUI _textLevel;
+    public void Set_Level(int level)
+    {
+        _textLevel.text = level.ToString();
+    }
 }

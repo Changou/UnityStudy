@@ -38,7 +38,7 @@ public class Owl_6 : Owl_5
             uiManager.ResetDir();
         }
 
-        _moveDir.x = dirValue * _moveSpeed;
+        _moveDir.x = dirValue * (_moveSpeed + ItemManager.i._MovingEffect);
 
         //  ม฿ทย..
         _moveDir.y -= _gravity * Time.deltaTime;
@@ -50,4 +50,5 @@ public class Owl_6 : Owl_5
         _anim.SetFloat("velocity", _moveDir.y);
 
     }
+
 }
