@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UIPanel_Enforce : UIPanelBase
@@ -13,6 +14,7 @@ public class UIPanel_Enforce : UIPanelBase
 
     private void OnEnable()
     {
+        _itemL = new List<GameObject>();
         Set_Enforce();
     }
 
@@ -24,15 +26,15 @@ public class UIPanel_Enforce : UIPanelBase
         while(cnt < _SettingItemCnt) 
         {
             items[cnt] = _Items[Random.Range(0,_Items.Length)];
-            if(cnt != 0)
+            for(int i = 0; i< cnt; i++)
             {
-                if (items[cnt] == items[cnt -1] || items[cnt].GetComponent<ItemBase>()._LV >= _MaxLV)
+                if (items[cnt] == items[i] || items[cnt].GetComponent<ItemBase>()._LV >= _MaxLV)
                 {
                     cnt--;
+                    break;
                 }
             }
             cnt++;
-            Debug.Log(cnt);
         }
         Setting(items);
     }
@@ -53,8 +55,8 @@ public class UIPanel_Enforce : UIPanelBase
         foreach(GameObject item in _itemL)
         {
             Destroy(item);
-            _itemL.Remove(item);
         }
+        _itemL.RemoveRange(0, _itemL.Count);
         transform.gameObject.SetActive(false);
     }
 }

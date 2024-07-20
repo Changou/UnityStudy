@@ -21,9 +21,12 @@ public class Bird_2 : Bird, ICollision
         _rb2D.gravityScale = 1f;
         _speed = 0f;
 
-        GameObject scoreGObj = Instantiate(_prefabScoreText.gameObject);
-        scoreGObj.transform.position = hitPos;
-        ScoreText score = scoreGObj.GetComponent<ScoreText>();
-        score.SetScore(_penaltyScore);
+        if (!_Owl._Invincibility)
+        {
+            GameObject scoreGObj = Instantiate(_prefabScoreText.gameObject);
+            scoreGObj.transform.position = hitPos;
+            ScoreText score = scoreGObj.GetComponent<ScoreText>();
+            score.SetScore(_penaltyScore);
+        }
     }
 }

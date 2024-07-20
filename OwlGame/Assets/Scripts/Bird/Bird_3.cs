@@ -6,7 +6,8 @@ public class Bird_3 : Bird_2
 {
     public override void OnCollide(Vector3 hitPos)
     {
-        GameManager_2._Inst.BirdStrike();
+        if(!_Owl._Invincibility)
+            GameManager_2._Inst.BirdStrike();
 
         base.OnCollide(hitPos);
 

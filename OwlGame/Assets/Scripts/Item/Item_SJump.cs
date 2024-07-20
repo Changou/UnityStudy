@@ -6,7 +6,8 @@ public class Item_SJump : ItemBase
 {
     protected override void Effect()
     {
-        ItemManager.i.CoinUp();
+        ItemManager.i.SjumpUp();
+        _Owl.GetComponent<Owl_6>().SJump(ItemManager.i._SjumpEffect) ;
 
         base.Effect();
     }

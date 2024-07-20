@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Owl_6 : Owl_5
 {
+    [Header("[ 무적 ]"), SerializeField] bool _invincibility;
+    [SerializeField] GameObject _Shield;
+    public bool _Invincibility => _invincibility;
+
     protected override void MoveOwl()
     {
         //  화면 아래를 벗어났는지 체크..
@@ -49,6 +53,19 @@ public class Owl_6 : Owl_5
         //  애니메이션..
         _anim.SetFloat("velocity", _moveDir.y);
 
+    }
+
+    public void Invincibility(float time)
+    {
+        _invincibility = true;
+        _Shield.SetActive(true);
+        StartCoroutine(InVTime(time));
+    }
+    IEnumerator InVTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        _Shield.SetActive(false);
+        _invincibility = false;
     }
 
 }

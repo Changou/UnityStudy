@@ -14,6 +14,8 @@ public class Bird : MonoBehaviour
     [Header("[ 이동 속도 ]"), SerializeField]
     protected float _speed = 5f;
 
+    [Header("올빼미"), SerializeField] protected Owl_6 _Owl;
+
     void InitBird()
     {
         _dir = (Random.Range(0, 2) == 0) ? -1 : 1;
@@ -41,6 +43,7 @@ public class Bird : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _rb2D = GetComponent<Rigidbody2D>();
         _collider2D = GetComponent<Collider2D>();
+        _Owl = GameObject.Find("Owl").GetComponent<Owl_6>();
     }
 
     // Start is called before the first frame update

@@ -89,6 +89,23 @@ public class Owl_2 : Owl
         return _isBranch;
 
     }// protected bool CheckBranch()
+
+    //½´ÆÛÁ¡ÇÁ
+    [Header("½´ÆÛ Á¡ÇÁ ÆÄ¿ö"), SerializeField] float _SJPower = 100f;
+    public void SJump(float time)
+    {
+        float _DefaultSpeed;
+        _DefaultSpeed = _jumpSpeed;
+        _jumpSpeed = _SJPower;
+        StartCoroutine(SJTime(time, _DefaultSpeed));
+    }
+
+    IEnumerator SJTime(float time, float speed)
+    {
+        yield return new WaitForSeconds(time);
+        _jumpSpeed = speed;
+    }
+
     //------------------------
     protected override void Update()
     {
