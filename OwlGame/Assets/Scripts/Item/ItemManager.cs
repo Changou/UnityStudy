@@ -6,6 +6,9 @@ public class ItemManager : MonoBehaviour
 {
     public static ItemManager i;
 
+    [Header("[ 아이템 레벨 ]")]
+    [SerializeField] int[] _item_LV;
+
     [Header("[ 아이템 효과 ]")]
     [SerializeField] int _coinEffect = 0;
     [SerializeField] int _jumpEffect = 0;
@@ -14,6 +17,8 @@ public class ItemManager : MonoBehaviour
     [SerializeField] float _sjumpEffect = 2;
     [SerializeField] float _invEffect = 3;
     [SerializeField] float _feverEffect = 3;
+
+    public int[] _Item_LV => _item_LV;
 
     public int _CoinEffect => 1 * _coinEffect;
     public int _JumpEffect => 1 * _jumpEffect;
@@ -26,6 +31,18 @@ public class ItemManager : MonoBehaviour
     private void Awake()
     {
         i = this;
+        _item_LV = new int[(int)ITEM_TYPE.MAX];
+        for(int i = 0; i < (int)ITEM_TYPE.MAX; i++)
+        {
+            _item_LV[i] = 1;
+        }
+    }
+
+    public void LEVELUP(int i)
+    {
+        if (_item_LV[i] == 5) return;
+
+        _item_LV[i]++;
     }
 
     public void FeverUp()

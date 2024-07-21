@@ -2994,6 +2994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 036ef013efe20db46939cbada66d1d2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _item_LV: 
   _coinEffect: 0
   _jumpEffect: 0
   _movingEffect: 0
@@ -4220,7 +4221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiManager: {fileID: 799210053}
   _isMobile: 0
-  _test: 20
+  _test: 5
   _bgmMain: {fileID: 8300000, guid: 8599008c79805db4c91f943dab9c3e02, type: 3}
   _bgmGameOver: {fileID: 8300000, guid: d537909f8b14e434bb2aa422b1ee67d5, type: 3}
   _myOwl: {fileID: 1787888376}
@@ -4637,13 +4638,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Items:
-  - {fileID: 4527230870973132938, guid: 11d5931b823a7374d96a5d94e14b88f8, type: 3}
-  - {fileID: 1240612749689894323, guid: c7025a7cb6c809a4394646318039de3d, type: 3}
-  - {fileID: 2150102121459261771, guid: cfd7ae6692f842543a2b27772089e817, type: 3}
-  - {fileID: 370668286122906138, guid: 336167839bbaa644caa8a4047bf65e23, type: 3}
-  - {fileID: 5516072526818110118, guid: 0a288665496027c469d7fa5e7fcf0e6e, type: 3}
-  - {fileID: 2467482756428295644, guid: 013d014208e40c644a183a5995345205, type: 3}
-  - {fileID: 3219885805081391393, guid: b63ceccbe4138d8468e3f62437909c44, type: 3}
+  - {fileID: 7161577592031843699, guid: 11d5931b823a7374d96a5d94e14b88f8, type: 3}
+  - {fileID: 5239356866455292732, guid: c7025a7cb6c809a4394646318039de3d, type: 3}
+  - {fileID: 4817158049273059627, guid: cfd7ae6692f842543a2b27772089e817, type: 3}
+  - {fileID: 60993494328842117, guid: 336167839bbaa644caa8a4047bf65e23, type: 3}
+  - {fileID: 4780574273171021160, guid: 0a288665496027c469d7fa5e7fcf0e6e, type: 3}
+  - {fileID: 5516169608326083793, guid: 013d014208e40c644a183a5995345205, type: 3}
+  - {fileID: 2277806718886181576, guid: b63ceccbe4138d8468e3f62437909c44, type: 3}
   _SettingItemCnt: 3
   _MaxLV: 5
 --- !u!1 &1985456796

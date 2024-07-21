@@ -8,7 +8,8 @@ public class Item_Shot : ItemBase
 
     protected override void Effect()
     {
-        ItemManager.i.ShotUp();
+        if (ItemManager.i._Item_LV[(int)_ItemType] < 5)
+            ItemManager.i.ShotUp();
         _Owl.GetComponent<GunManager>().GunActive(ItemManager.i._ShotEffect);
 
         base.Effect();

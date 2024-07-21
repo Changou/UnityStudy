@@ -6,7 +6,8 @@ public class Item_Jump : ItemBase
 {
     protected override void Effect()
     {
-        ItemManager.i.JumpUp();
+        if (ItemManager.i._Item_LV[(int)_ItemType] < 5)
+            ItemManager.i.JumpUp();
 
         base.Effect();
     }

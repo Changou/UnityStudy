@@ -28,7 +28,7 @@ public class UIPanel_Enforce : UIPanelBase
             items[cnt] = _Items[Random.Range(0,_Items.Length)];
             for(int i = 0; i< cnt; i++)
             {
-                if (items[cnt] == items[i] || items[cnt].GetComponent<ItemBase>()._LV >= _MaxLV)
+                if (items[cnt] == items[i] || ItemManager.i._Item_LV[(int)items[cnt].GetComponent<ItemBase>()._ItemType] >= _MaxLV)
                 {
                     cnt--;
                     break;

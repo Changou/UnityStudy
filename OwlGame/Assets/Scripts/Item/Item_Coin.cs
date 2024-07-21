@@ -6,7 +6,8 @@ public class Item_Coin : ItemBase
 {
     protected override void Effect()
     {
-        ItemManager.i.CoinUp();
+        if (ItemManager.i._Item_LV[(int)_ItemType] < 5)
+            ItemManager.i.CoinUp();
 
         base.Effect();
     }

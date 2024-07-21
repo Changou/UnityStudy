@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class Item_Fever : ItemBase
 {
-    // Start is called before the first frame update
-    void Start()
+    protected override void Effect()
     {
-        
-    }
+        if (ItemManager.i._Item_LV[(int)_ItemType] < 5)
+            ItemManager.i.FeverUp();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        base.Effect();
     }
 }
