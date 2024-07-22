@@ -20,11 +20,15 @@ public class Bullet : MonoBehaviour
         transform.Translate(Vector3.up * amount);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Bird"))
+        if (collision.CompareTag("Bird"))
         {
-            Destroy(collision.gameObject);
+            collision.transform.localEulerAngles = new Vector3(0, 0, 180f);
+            collision.GetComponent<Animator>().enabled = false;
+            Destroy(collision.GetComponent<Collider2D>());
+            collision.GetComponent<Rigidbody2D>().gravityScale = 1f;
+            _speed = 0f;
             Destroy(gameObject);
         }
     }

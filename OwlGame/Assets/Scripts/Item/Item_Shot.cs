@@ -10,7 +10,10 @@ public class Item_Shot : ItemBase
     {
         if (ItemManager.i._Item_LV[(int)_ItemType] < 5)
             ItemManager.i.ShotUp();
-        _Owl.GetComponent<GunManager>().GunActive(ItemManager.i._ShotEffect);
+        if (ItemManager.i._Item_LV[(int)_ItemType] == 5)
+            _Owl.GetComponent<GunManager>().GunActive(5);
+        else
+            _Owl.GetComponent<GunManager>().GunActive(ItemManager.i._ShotEffect);
 
         base.Effect();
     }

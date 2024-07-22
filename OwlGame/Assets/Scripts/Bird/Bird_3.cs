@@ -10,6 +10,5 @@ public class Bird_3 : Bird_2
             GameManager_2._Inst.BirdStrike();
 
         base.OnCollide(hitPos);
-
     }
 }

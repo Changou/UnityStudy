@@ -22,6 +22,8 @@ public class GameManager_2 : GameManager
     //  게임 오버??
     bool _isGameOver = false;
 
+    public bool _IsGameOver => _isGameOver ;
+
     // 코인 획득 수..
     int _coinCount = 0;
 
