@@ -15,7 +15,7 @@ public class UIPanel_EffectTime : UIPanelBase
         _timerL = new List<GameObject>();
     }
 
-    public void SetEffectTime(Sprite img, float time, ITEM_TYPE _type)
+    public void SetEffectTime(Sprite img, float time)
     {
         for(int i = 0;i< _timerL.Count;i++)
         {
@@ -29,7 +29,7 @@ public class UIPanel_EffectTime : UIPanelBase
         GameObject tmp = Instantiate(_prefab);
         tmp.transform.SetParent(transform);
         tmp.transform.localScale = Vector3.one;
-        tmp.GetComponent<EffectTime>().Setting(img, time, _type);
+        tmp.GetComponent<EffectTime>().Setting(img, time);
         _timerL.Add(tmp);
     }
 
