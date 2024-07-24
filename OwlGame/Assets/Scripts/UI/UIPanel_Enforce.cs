@@ -25,11 +25,9 @@ public class UIPanel_Enforce : UIPanelBase
         int cnt = 0;
         while(cnt < _SettingItemCnt) 
         {
-            items[cnt] = _Items[1];
-            /*
-            items[cnt] = _Items[Random.Range(0,_Items.Length)];
-            
-            for(int i = 0; i< cnt; i++)
+            items[cnt] = _Items[Random.Range(0, _Items.Length)];
+
+            for (int i = 0; i < cnt; i++)
             {
                 if (items[cnt] == items[i] || ItemManager.i._Item_LV[(int)items[cnt].GetComponent<ItemBase>()._ItemType] >= _MaxLV)
                 {
@@ -37,7 +35,6 @@ public class UIPanel_Enforce : UIPanelBase
                     break;
                 }
             }
-            */
             cnt++;
         }
         Setting(items);
