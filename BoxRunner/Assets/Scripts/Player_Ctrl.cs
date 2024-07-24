@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Transactions;
@@ -21,11 +22,33 @@ public class Player_Ctrl : MonoBehaviour
     [Header("점프력"), SerializeField]
     float _jumpPower = 500f;
     //-----------------------------
+    public enum eSOUND
+    {
+        COIN,
+        DEATH,
+        JUMP
+    }
+    [Header("효과음"), SerializeField]
+    AudioClip[] _sounds;
+
+    AudioSource _audioSrc;
+
+    void Play_Sound(eSOUND eIdx, float volume = 0.7f)
+    {
+        _audioSrc.PlayOneShot(_sounds[(int)eIdx], volume);
+    }
+
     Rigidbody _rigidbody;
+    //-----------------------------
+    [Header("애니메이션 컨트롤러"), SerializeField]
+    Animator _animCtrl;
     //-----------------------------
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+
+        _audioSrc = GetComponent<AudioSource>();
+        _audioSrc.playOnAwake = false;
 
         //  중력을 증가시켜
         //  좀 더 자연스럽게 연출..
@@ -57,19 +80,31 @@ public class Player_Ctrl : MonoBehaviour
     {
         _ePlayerState = ePLAYER_STATE.JUMP;
 
+        Play_Sound(eSOUND.JUMP);
+
         _rigidbody.AddForce(new Vector3(0, _jumpPower, 0));
+
+        _animCtrl.SetTrigger("Jump");
+        _animCtrl.SetBool("Ground", false);
     }
     //-----------------------------
     void Double_Jump()
     {
         _ePlayerState = ePLAYER_STATE.D_JUMP;
 
+        Play_Sound(eSOUND.JUMP);
+
         _rigidbody.AddForce(new Vector3(0, _jumpPower, 0));
+
+        _animCtrl.SetTrigger("D_Jump");
+        _animCtrl.SetBool("Ground", false);
     }
     //-----------------------------
     void Run()
     {
         _ePlayerState = ePLAYER_STATE.RUN;
+
+        _animCtrl.SetBool("Ground", true);
     }
     //-----------------------------
     void OnCollisionEnter(Collision collision)
@@ -82,12 +117,14 @@ public class Player_Ctrl : MonoBehaviour
 
     void Get_Coin()
     {
-
+        Play_Sound(eSOUND.COIN);
     }
 
     void Game_Over()
     {
         _ePlayerState = ePLAYER_STATE.DEATH;
+
+        Play_Sound(eSOUND.DEATH);
     }
 
     private void OnTriggerEnter(Collider other)
