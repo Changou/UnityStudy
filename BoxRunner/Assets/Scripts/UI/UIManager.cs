@@ -17,6 +17,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     GameObject[] _uiList;
     //--------------------
+    [Header("페이드 인 아웃"), SerializeField]
+    FadeInOut _fadeInout;
+
     public void Show_Menu_Only(eMENU eIdx)
     {
         foreach (GameObject obj in _uiList)
@@ -44,12 +47,12 @@ public class UIManager : MonoBehaviour
     {
         Scene scene = SceneManager.GetActiveScene();
 
-        SceneManager.LoadScene(scene.name);
+        _fadeInout.FadeOut(scene.name);
     }
-    //--------------------
+    //---------------------
     public void OnFirstScene()
     {
-
+        _fadeInout.FadeOut("Title");
     }
     //--------------------
     UI_Main _uiMain;

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Transactions;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Player_Ctrl : MonoBehaviour
 {
@@ -60,7 +61,27 @@ public class Player_Ctrl : MonoBehaviour
         if (_ePlayerState == ePLAYER_STATE.DEATH)
             return;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Application.platform == RuntimePlatform.Android ||
+             Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+
+                if (touch.phase == TouchPhase.Began)
+                {
+                    if (_ePlayerState == ePLAYER_STATE.JUMP)
+                        Double_Jump();
+
+                    if (_ePlayerState == ePLAYER_STATE.RUN)
+                        Jump();
+
+                }// if(touch.phase == TouchPhase.Began )
+
+            }// if( Input.touchCount > 0 )
+        }
+
+            if (Input.GetKeyDown(KeyCode.Space))
         {
             switch (_ePlayerState)
             {
@@ -130,13 +151,19 @@ public class Player_Ctrl : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         _rigidbody.WakeUp();
-
         if (other.CompareTag("Coin"))
         {
             Get_Coin();
+            _onGetCoin.Invoke();
             Destroy(other.gameObject);
         }
         if (other.CompareTag("Death Zone"))
+        {
             Game_Over();
+            _onGameOver.Invoke();
+        }
     }
+
+    public UnityEvent _onGetCoin;
+    public UnityEvent _onGameOver;
 }

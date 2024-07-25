@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Coin
   - Death Zone
+  - Hurdle
   layers:
   - Default
   - TransparentFX

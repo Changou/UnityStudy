@@ -5,7 +5,7 @@ using UnityEngine;
 public class Block_Loop : MonoBehaviour
 {
     [Header("이동 속도"), SerializeField]
-    float _speed = 3f;
+    public float _speed = 3f;
 
     [Header("생성할 블록"), SerializeField]
     GameObject[] _blockPrefabs;
@@ -20,9 +20,19 @@ public class Block_Loop : MonoBehaviour
 
     void Update() { Move(); }
 
+    [Header("어려움 정도")]
+    [SerializeField] int _difficult = 2;
+
+    public void LevelUp()
+    {
+        ++_difficult;
+        if(_difficult > _blockPrefabs.Length)
+            _difficult = _blockPrefabs.Length;
+    }
+
     void Make()
     {
-        int blockIdx = Random.Range(0, _blockPrefabs.Length);
+        int blockIdx = Random.Range(0, _difficult);
 
         _b_Zone = Instantiate(
             _blockPrefabs[blockIdx],

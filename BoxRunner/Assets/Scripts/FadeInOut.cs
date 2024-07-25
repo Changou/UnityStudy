@@ -12,12 +12,16 @@ public class FadeInOut : MonoBehaviour
     [Header("페이드 비율"), SerializeField]
     float _rate = 0.2f;
     //--------------------------
+
+    [Header("씬 로드"), SerializeField]
+    SceneLoader _sceneLoader;
+
     void Awake()
     {
         _fadeImage.color = Color.black;
     }
     //--------------------------
-    IEnumerator CRT_FadeInOut(bool isFadeIn, float rate)
+    IEnumerator CRT_FadeInOut(bool isFadeIn, float rate, string name = "")
     {
         if (isFadeIn)
         {
@@ -25,7 +29,7 @@ public class FadeInOut : MonoBehaviour
 
             while (tmp.a > 0f)
             {
-                tmp.a -= rate * Time.deltaTime;
+                tmp.a -= rate * Time.unscaledDeltaTime;
 
                 _fadeImage.color = tmp;
 
@@ -38,11 +42,11 @@ public class FadeInOut : MonoBehaviour
         }// if(isFadeIn)
         else
         {
-            Color tmp = new Color(0, 0, 0, 0);
+            Color tmp = new Color(0,0,0, _fadeImage.color.a);
 
             while (tmp.a < 1f)
             {
-                tmp.a += _rate * Time.deltaTime;
+                tmp.a += _rate * Time.unscaledDeltaTime;
 
                 _fadeImage.color = tmp;
 
@@ -50,6 +54,7 @@ public class FadeInOut : MonoBehaviour
 
                 yield return null;
             }
+            _sceneLoader.OnLoadScene(name);
 
         }// ~if(isFadeIn)
 
@@ -60,5 +65,11 @@ public class FadeInOut : MonoBehaviour
         _fadeImage.color = Color.black;
 
         StartCoroutine(CRT_FadeInOut(true, _rate));
+    }
+
+    public void FadeOut(string name)
+    {
+        StopAllCoroutines();
+        StartCoroutine(CRT_FadeInOut(false, _rate, name));
     }
 }
