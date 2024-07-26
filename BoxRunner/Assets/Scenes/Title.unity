@@ -5001,7 +5001,7 @@ MonoBehaviour:
   - {fileID: 3246954326133143982, guid: bbee5900f5f5c09498a3dc07d243bc5e, type: 3}
   _a_Zone: {fileID: 571416490}
   _b_Zone: {fileID: 6288117827071797873}
-  _difficult: 2
+  _difficult: 0
 --- !u!1 &108798793
 GameObject:
   m_ObjectHideFlags: 0

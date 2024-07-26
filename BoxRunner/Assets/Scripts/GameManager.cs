@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 
             if((int)(_moveDist / _speedDist) > _changeSpeed)
             {
-                ++_speed;
+                _speed += 0.5f;
                 _blockManager._speed = _speed;
                 _blockManager.LevelUp();
                 _changeSpeed = (int)(_moveDist / _speedDist);
