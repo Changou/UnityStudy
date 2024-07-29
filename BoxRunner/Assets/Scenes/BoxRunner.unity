@@ -5110,18 +5110,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 5
   _blockPrefabs:
-  - {fileID: 3246954326133143982, guid: bbee5900f5f5c09498a3dc07d243bc5e, type: 3}
+  - {fileID: 5359821596774988737, guid: 5db68e7143e917b4b91288d45f8bd9d7, type: 3}
   - {fileID: 4632600003581599509, guid: 009624d8d8ad81544b3a861f6d765b19, type: 3}
   - {fileID: 8351049544489403865, guid: dac3e84eb3d157b499f56340e179f987, type: 3}
   - {fileID: 7212022864175502905, guid: b054dd8f325ad574a93d95adcc6dc810, type: 3}
+  - {fileID: 5359821596774988737, guid: 5db68e7143e917b4b91288d45f8bd9d7, type: 3}
   - {fileID: 5359821596774988737, guid: 441f8b7ca4e9a2f4395aa631b2e411d6, type: 3}
+  - {fileID: 1258079670595467825, guid: 397907d9d24a5174a8e235424542570c, type: 3}
   - {fileID: 1258079670595467825, guid: 13f8bc7d8511dc648a9b700f9a223001, type: 3}
   - {fileID: 1258079670595467825, guid: 9042fa32fc4bee941b0b0c659ca5a4c0, type: 3}
   - {fileID: 1258079670595467825, guid: 253d544ee8e35a14da337c4535495de7, type: 3}
   - {fileID: 1258079670595467825, guid: 7dafdd4d9f3d5684e88e422da3cad328, type: 3}
   _a_Zone: {fileID: 571416490}
   _b_Zone: {fileID: 6288117827071797873}
-  _difficult: 3
+  _difficult: 1
 --- !u!1 &108798793
 GameObject:
   m_ObjectHideFlags: 0

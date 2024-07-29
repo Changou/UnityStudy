@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIManager : MonoBehaviour
+public class UIManagerS : MonoBehaviour
 {
     //--------------------
     public enum eMENU
@@ -46,12 +46,13 @@ public class UIManager : MonoBehaviour
     public void OnReplay()
     {
         Scene scene = SceneManager.GetActiveScene();
-
+        StageManager._Inst._IsStageClear = false;
         _fadeInout.FadeOut(scene.name);
     }
     //---------------------
     public void OnFirstScene()
     {
+        StageManager._Inst.Destroy();
         _fadeInout.FadeOut("Title");
     }
     //--------------------
@@ -65,7 +66,7 @@ public class UIManager : MonoBehaviour
         _uiMain.SetText_Coin(coin);
     }
     //--------------------
-    UI_Result _uiResult;
+    UI_ResultS _uiResult;
     public void SetText_RunDist_Result(float dist)
      {
         _uiResult.SetText_RunDist(dist);
@@ -80,6 +81,6 @@ public class UIManager : MonoBehaviour
         Show_Menu_Only(eMENU.MAIN);
         
         _uiMain = _uiList[(int)eMENU.MAIN].GetComponent<UI_Main>();
-        _uiResult = _uiList[(int)eMENU.RESULT].GetComponent<UI_Result>();
+        _uiResult = _uiList[(int)eMENU.RESULT].GetComponent<UI_ResultS>();
     }
 }

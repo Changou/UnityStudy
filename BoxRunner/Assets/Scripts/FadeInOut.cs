@@ -29,7 +29,7 @@ public class FadeInOut : MonoBehaviour
 
             while (tmp.a > 0f)
             {
-                tmp.a -= rate * Time.unscaledDeltaTime;
+                tmp.a -= _rate * Time.unscaledDeltaTime;
 
                 _fadeImage.color = tmp;
 

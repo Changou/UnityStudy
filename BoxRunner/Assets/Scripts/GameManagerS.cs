@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManagerS : MonoBehaviour
 {
-    public static GameManager _Inst;
+    public static GameManagerS _Inst;
     //-----------------------------
     public enum eGAMESTATE
     {
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     //-----------------------------
     [Header("UI 매니저"), SerializeField]
-    UIManager _uiManager;
+    UIManagerS _uiManager;
     //-----------------------------
     [Header("블록 패턴 매니저"), SerializeField]
     Block_Loop _blockManager;
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     //-----------------------------
     public void GameOver()
     {
-        _uiManager.Show_Menu_Only(UIManager.eMENU.RESULT);
+        _uiManager.Show_Menu_Only(UIManagerS.eMENU.RESULT);
 
         _uiManager.SetText_RunDist_Result(_moveDist);
 
