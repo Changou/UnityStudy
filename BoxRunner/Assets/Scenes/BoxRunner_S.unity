@@ -5848,6 +5848,7 @@ GameObject:
   - component: {fileID: 312616100}
   - component: {fileID: 312616102}
   - component: {fileID: 312616101}
+  - component: {fileID: 312616103}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -5912,6 +5913,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 312616099}
   m_CullTransparentMesh: 1
+--- !u!95 &312616103
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312616099}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c4f66aacf71127341a4f999f55f1c2da, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &347691707
 GameObject:
   m_ObjectHideFlags: 0
@@ -8252,7 +8274,7 @@ GameObject:
   - component: {fileID: 1744476448}
   - component: {fileID: 1744476447}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Flag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
