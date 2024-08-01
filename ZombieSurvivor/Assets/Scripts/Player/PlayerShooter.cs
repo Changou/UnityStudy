@@ -42,7 +42,7 @@ public class PlayerShooter : MonoBehaviour
 
     private void Update()
     {
-        /*//  입력 컨트롤에서 총 발사..
+        //  입력 컨트롤에서 총 발사..
         if (_playerInput.Fire)
         {
             //  총이 발사처리..
@@ -58,7 +58,7 @@ public class PlayerShooter : MonoBehaviour
                 _playerAnimator.SetTrigger("Reload");
             }
 
-        }// else if (_playerInput.Reload)*/
+        }// else if (_playerInput.Reload)
 
         InputChange();
 
@@ -100,9 +100,9 @@ public class PlayerShooter : MonoBehaviour
 
     void UpdateUI()
     {
-        //  JUIManager 구현후 처리..
-        //if (_gun != null && UIManager.Instance != null)
-        //    UIManager.Instance.UpdateAmmoText(_gun._magAmmo, _gun._ammoRemain);
+        //UIManager 구현후 처리..
+        if (_gun != null && UIManager.Instance != null)
+            UIManager.Instance.UpdateAmmoText(_gun._magAmmo, _gun._ammoRemain);
     }
 
     private void OnAnimatorIK(int layerIndex)
