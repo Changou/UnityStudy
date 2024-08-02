@@ -20,6 +20,7 @@ public class Enemy : LivingEntity
     public float _damage = 20f;         //	공격력..
     public float _attackTime = 0.5f;    //	공격 시간 간격..
     public float _lastAttackTime = 0f;	//	가장 최근 공격 시간..
+    public float _traceDist = 5f;       //  탐지 가능 범위
 
     bool HasTarget
     {
@@ -82,7 +83,7 @@ public class Enemy : LivingEntity
             {
                 _pathFinder.isStopped = true;
 
-                Collider[] colliders = Physics.OverlapSphere(transform.position, 20f, _targetLayerMask);
+                Collider[] colliders = Physics.OverlapSphere(transform.position, _traceDist, _targetLayerMask);
 
                 for(int cur = 0; cur < colliders.Length; ++cur)
                 {

@@ -8,13 +8,12 @@ public class AmmoPack : MonoBehaviour, IItem
     {
         Debug.Log("탄알 증가 : " + _ammo);
 
-        /* 실제 처리.
-		JPlayerShooter player = target.GetComponent<JPlayerShooter>();
+		PlayerShooter player = target.GetComponent<PlayerShooter>();
 
 		if( player != null && player._gun != null )
 			player._gun._ammoRemain += _ammo;
 
 		Destroy( gameObject );
-		//*/
+
     }
 }

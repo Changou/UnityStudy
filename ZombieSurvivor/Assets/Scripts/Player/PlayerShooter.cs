@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+public enum GUN_TYPE
+{
+    GUN,
+    PISTOL,
+    RPG,
+    RIFLE,
+    NONE
+}
+
 public class PlayerShooter : MonoBehaviour
 {
     public Gun _gun;
@@ -18,15 +27,6 @@ public class PlayerShooter : MonoBehaviour
     //Quiz
     public GameObject[] _guns;
 
-    public enum GUN_TYPE
-    {
-        GUN,
-        PISTOL,
-        RPG,
-        RIFLE,
-        NONE
-    }
-
     public GUN_TYPE _gType = GUN_TYPE.GUN;
     GUN_TYPE _ipType;
 
@@ -34,7 +34,7 @@ public class PlayerShooter : MonoBehaviour
     {
         _playerInput = GetComponent<PlayerInput>();
         _playerAnimator = GetComponent<Animator>();
-
+        ChangeGun();
     }
 
     void OnEnable() { _gun.gameObject.SetActive(true); }
@@ -60,30 +60,8 @@ public class PlayerShooter : MonoBehaviour
 
         }// else if (_playerInput.Reload)
 
-        InputChange();
-
         //  남은 탄알 UI 갱신..
         UpdateUI();
-    }
-
-    void InputChange()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            _ipType = GUN_TYPE.GUN;
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-            _ipType = GUN_TYPE.PISTOL;
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-            _ipType = GUN_TYPE.RPG;
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-            _ipType = GUN_TYPE.RIFLE;
-        else
-            _ipType = GUN_TYPE.NONE;
-
-        if(_ipType != _gType && _ipType != GUN_TYPE.NONE)
-        {
-            _gType = _ipType;
-            ChangeGun();
-        }
     }
 
     void ChangeGun()

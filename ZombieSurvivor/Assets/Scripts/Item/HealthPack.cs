@@ -8,13 +8,12 @@ public class HealthPack : MonoBehaviour,IItem
     {
         Debug.Log("체력 증가 : " + _health);
 
-        /* 실제 처리.
-		JLivingEntity life = target.GetComponent<JLivingEntity>();
+		LivingEntity life = target.GetComponent<LivingEntity>();
 
 		if( life != null )
 			life.RestoreHealth(_health);
 
 		Destroy(gameObject);
-		*/
+
     }
 }

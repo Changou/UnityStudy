@@ -8,10 +8,9 @@ public class Coin : MonoBehaviour, IItem
     {
         Debug.Log("점수 증가 : " + _score);
 
-        /* 실제 처리.
-		JGameManager.Instance.AddScore( _score );
+		GameManager.Instance.AddScore( _score );
 
 		Destroy( gameObject );
-		//*/
+
     }
 }
