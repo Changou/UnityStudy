@@ -17,4 +17,17 @@ public class LobbyManager : MonoBehaviour
         _Inst = this;
         DontDestroyOnLoad(gameObject);
     }
+
+    public void SelectPistol()
+    {
+        _type = GUN_TYPE.PISTOL;
+    }
+    public void SelectRifle()
+    {
+        _type = GUN_TYPE.RIFLE;
+    }
+    public void SelectRPG()
+    {
+        _type = GUN_TYPE.RPG;
+    }
 }

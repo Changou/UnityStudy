@@ -34,6 +34,12 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<PlayerHealth>().OnDeath += EndGame;
     }
 
+    public void StageClear()
+    {
+        Time.timeScale = 0;
+        UIManager.Instance.SetActiveStageClearUI(true);
+    }
+
     public void EndGame()
     {
         IsGameOver = true;

@@ -43,7 +43,10 @@ public class EnemySpawner : MonoBehaviour
     void SpawnWave()
     {
         _curWave++;
-
+        if(_curWave > 3)
+        {
+            StageManager._Inst.StageClear();
+        }
         //	Mathf.RoundToInt..
         //	-	입력값의
         //		반올림한 값을 반환..

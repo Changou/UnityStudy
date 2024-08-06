@@ -18,9 +18,10 @@ public class UIManager : MonoBehaviour
     }
     public Text _ammoText;          //	탄알 표시.
     public Text _scoreText;         //	점수 표시.
+    public Text _stageText;         //  현 스테이지 표시
     public Text _waveText;          //	웨이브 표시.
     public GameObject _gameoverUI;  //	게임 오버 시 출력될 UI.
-    public Button _onRestart;       //  재시작 버튼 이벤트.
+    public GameObject _stageClearUI; // 스테이지 클리어 시 출력될 UI;
 
     //	탄알 갱신.
     public void UpdateAmmoText(int magAmmo, int remainAmmo)
@@ -30,6 +31,11 @@ public class UIManager : MonoBehaviour
     public void UpdateScoreText(int newScore)
     { _scoreText.text = "Score : " + newScore; }
 
+    public void UpdateStageText(int curStage)
+    {
+        _stageText.text = "Stage : " + curStage;
+    }
+
     //	웨이브 갱신.
     public void UpdateWaveText(int waves, int enemyLeftCount)
     { _waveText.text = "Wave : " + waves + "\nEnemy Left : " + enemyLeftCount; }
@@ -38,9 +44,8 @@ public class UIManager : MonoBehaviour
     public void SetActiveGameoverUI(bool isActive)
     { _gameoverUI.SetActive(isActive); }
 
-    //	게임 재시작.
-    public void GameRestart()
-    { SceneManager.LoadScene(SceneManager.GetActiveScene().name); }
+    public void SetActiveStageClearUI(bool isActive)
+    { _stageClearUI.SetActive(isActive); }
 
     private void Awake()
     {
@@ -53,6 +58,10 @@ public class UIManager : MonoBehaviour
         }
 
         SetActiveGameoverUI(false);
-        _onRestart.onClick.AddListener(GameRestart);
+        
+    }
+    private void Start()
+    {
+        UpdateStageText(StageManager._Inst._CurrentStage);
     }
 }

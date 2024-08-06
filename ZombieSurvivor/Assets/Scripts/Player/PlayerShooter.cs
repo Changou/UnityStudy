@@ -15,6 +15,7 @@ public enum GUN_TYPE
 public class PlayerShooter : MonoBehaviour
 {
     public Gun _gun;
+    public RPG _rpg;
     PlayerInput _playerInput;
 
     public Transform _trsfGunPivot;
@@ -27,8 +28,17 @@ public class PlayerShooter : MonoBehaviour
     //Quiz
     public GameObject[] _guns;
 
-    public GUN_TYPE _gType = GUN_TYPE.GUN;
-    GUN_TYPE _ipType;
+    public GUN_TYPE _gType;
+
+    private void Awake()
+    {
+        _gType = LobbyManager._Inst._type;
+
+        if(_gType == GUN_TYPE.RPG)
+            _rpg = _guns[(int)_gType].transform.GetChild(0).GetComponent<RPG>();
+        else
+            _gun = _guns[(int)_gType].transform.GetChild(0).GetComponent<Gun>();
+    }
 
     private void Start()
     {
@@ -37,27 +47,30 @@ public class PlayerShooter : MonoBehaviour
         ChangeGun();
     }
 
-    void OnEnable() { _gun.gameObject.SetActive(true); }
-    private void OnDisable() { _gun.gameObject.SetActive(false); }
-
     private void Update()
     {
         //  입력 컨트롤에서 총 발사..
         if (_playerInput.Fire)
         {
             //  총이 발사처리..
-            _gun.Fire();
+            if(_gType == GUN_TYPE.RPG)
+                _rpg.Fire();
+            else
+                _gun.Fire();
+
         }
         //  입력 컨트롤에서 재장전..
         else if (_playerInput.Reload)
         {
+            if (_rpg != null && _rpg.Reload())
+                _playerAnimator.SetTrigger("Reload");
             //  총이 재장전 처리..
-            if (_gun.Reload())
+            else if (_gun.Reload())
             {
                 //  재장전 애니메이션 재생..
                 _playerAnimator.SetTrigger("Reload");
             }
-
+           
         }// else if (_playerInput.Reload)
 
         //  남은 탄알 UI 갱신..
@@ -81,6 +94,8 @@ public class PlayerShooter : MonoBehaviour
         //UIManager 구현후 처리..
         if (_gun != null && UIManager.Instance != null)
             UIManager.Instance.UpdateAmmoText(_gun._magAmmo, _gun._ammoRemain);
+        else
+            UIManager.Instance.UpdateAmmoText(_rpg._magAmmo, _rpg._ammoRemain);
     }
 
     private void OnAnimatorIK(int layerIndex)

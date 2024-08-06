@@ -14,7 +14,7 @@ public class Gun : MonoBehaviour
     }//	public enum eSTATE
 
     //	현재 총의 상태..
-    public eSTATE _eCurState { get; private set; }
+    public eSTATE _eCurState { get; protected set; }
     //----------------------------
     //	탄알이 발사될 위치..
     public Transform _fireTransf;
@@ -22,13 +22,13 @@ public class Gun : MonoBehaviour
     //	총구 화염 이펙트..
     public ParticleSystem _muzzleFlashEffect;
     //	탄피 배출 이펙트..
-    public ParticleSystem _shellEjectEffect;
+    //public ParticleSystem _shellEjectEffect;
     //----------------------------
     //	탄알 궤적용 라인 렌더러..
     LineRenderer _bulletLineRenderer;
     //----------------------------
     //	총의 소리 재생기..
-    AudioSource _gunAudioPlayer;
+    protected AudioSource _gunAudioPlayer;
     //	발사 소리..
     public AudioClip _shotClip;
     //	재장전 소리..
@@ -53,7 +53,7 @@ public class Gun : MonoBehaviour
     //	총을 마지막으로 발사한 시점..
     float _lastFireTime;
     //----------------------------
-    private void Awake()
+    protected virtual void Awake()
     {
         _gunAudioPlayer = GetComponent<AudioSource>();
         _bulletLineRenderer = GetComponent<LineRenderer>();
@@ -84,7 +84,7 @@ public class Gun : MonoBehaviour
         }
     }
 
-    void Shot()
+    protected virtual void Shot()
     {
         RaycastHit hit;
 
@@ -137,7 +137,7 @@ public class Gun : MonoBehaviour
     IEnumerator ShotEffect(Vector3 hitPos)
     {
         _muzzleFlashEffect.Play();
-        _shellEjectEffect.Play();
+        //_shellEjectEffect.Play();
         _gunAudioPlayer.PlayOneShot(_shotClip);
 
         //	라인 렌더러 시작 지점 설정..
@@ -155,7 +155,7 @@ public class Gun : MonoBehaviour
         //	라인 렌더러를 비활성화하여 탄알 궤적 지우기..
         _bulletLineRenderer.enabled = false;
     }
-    public bool Reload()
+    public virtual bool Reload()
     {
         //	재장전 중이거나
         //	남은 탄알 없거나
@@ -169,7 +169,7 @@ public class Gun : MonoBehaviour
         StartCoroutine(ReloadRoutine());
         return true;
     }
-    IEnumerator ReloadRoutine()
+    protected virtual IEnumerator ReloadRoutine()
     {
         //	현재 상태를 [ 재장전 중 ] 상태로 전환..
         _eCurState = eSTATE.Reloading;

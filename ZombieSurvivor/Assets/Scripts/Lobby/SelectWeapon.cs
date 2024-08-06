@@ -29,12 +29,4 @@ public class SelectWeapon : MonoBehaviour
         _wGroup.SetActive(true);
         transform.GetComponent<RectTransform>().sizeDelta = new Vector2(1400,700);
     }
-
-    public void CollectWeapon(string type)
-    {
-        if (type.Equals("PISTOL"))
-        {
-
-        }
-    }
 }
