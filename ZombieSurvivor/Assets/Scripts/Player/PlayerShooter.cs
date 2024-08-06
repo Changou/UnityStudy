@@ -32,7 +32,7 @@ public class PlayerShooter : MonoBehaviour
 
     private void Awake()
     {
-        _gType = LobbyManager._Inst._type;
+        //_gType = LobbyManager._Inst._type;
 
         if(_gType == GUN_TYPE.RPG)
             _rpg = _guns[(int)_gType].transform.GetChild(0).GetComponent<RPG>();
