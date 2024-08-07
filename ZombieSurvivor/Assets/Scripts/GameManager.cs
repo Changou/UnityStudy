@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
         //	본인을 파괴..
         if (Instance != null && Instance != this)
             Destroy(gameObject);
+        Time.timeScale = 1.0f;
+
     }
 
     private void Start()
