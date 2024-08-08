@@ -15,6 +15,10 @@ public class MoveCtrlEX : MoveCtrl
     [Header("[ 캐릭터 컨트롤러.. ]"), SerializeField]
     CharacterController _characterCtrl;
     //---------------------------
+
+    [SerializeField] float _jumpPower = 3f;
+
+    Vector3 _jDir;
     protected override void Awake()
     {
         base.Awake();
@@ -30,12 +34,21 @@ public class MoveCtrlEX : MoveCtrl
         Vector3 dir = _camTransf.forward;
 
         //  이동..
-        _characterCtrl.SimpleMove(dir * speed);
+        _characterCtrl.Move((dir + _jDir) * speed * Time.deltaTime);
 
     }// void Move_By_LookAt()
     //---------------------------
     protected override void Update()
     {
+        if (_characterCtrl.isGrounded)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _jDir.y = _jumpPower;
+                _eMoveType = eMOVE_TYPE.LOOK_AT;
+            }
+        }
+        _jDir.y += Physics.gravity.y * Time.deltaTime;
         switch (_eMoveType)
         {
             case eMOVE_TYPE.WAYPOINT:
@@ -53,7 +66,17 @@ public class MoveCtrlEX : MoveCtrl
                 }
                 break;
 
-        }// switch( _eMoveType )
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("MoveCube"))
+        {
 
+        }
+        if (other.CompareTag("WAYPOINT") && _eMoveType == eMOVE_TYPE.WAYPOINT)
+        {
+            _nextWayptIdx = (++_nextWayptIdx >= _wayPts.Length) ? 1 : _nextWayptIdx;
+        }
     }
 }

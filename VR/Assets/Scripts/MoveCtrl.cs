@@ -13,10 +13,10 @@ public class MoveCtrl : MonoBehaviour
     //----------------------------------
     [Header("[ 웨이포인트 트랙.. ]"), SerializeField]
     WayPointTrack _track;
-    Transform[] _wayPts;
+    protected Transform[] _wayPts;
     //----------------------------------
     [Header("[ 다음 이동 타겟 웨이 포인트 인덱스..]"), SerializeField]
-    int _nextWayptIdx = 1;
+    protected int _nextWayptIdx = 1;
     //----------------------------------
     //  캐릭터 트랜스폼..
     protected Transform _myTransf;
@@ -36,26 +36,26 @@ public class MoveCtrl : MonoBehaviour
     //----------------------------------
     protected virtual void Update() { Move_By_WayPts(); }
     //----------------------------------
-    protected void Move_By_WayPts()
+    protected virtual void Move_By_WayPts()
     {
         //  방향 벡터 계산..
         //  -   현재 위치
         //      ->  다음 웨이 포인트 위치..
         Vector3 dir = _wayPts[_nextWayptIdx].position - _myTransf.position;
 
-        //  방향 벡터의 회전 각도를
-        //  쿼터니언으로 변환..
-        Quaternion rot = Quaternion.LookRotation(dir.normalized);
+        ////  방향 벡터의 회전 각도를
+        ////  쿼터니언으로 변환..
+        //Quaternion rot = Quaternion.LookRotation(dir.normalized);
 
-        //  회전 보간..
-        _myTransf.rotation = Quaternion.Lerp(_myTransf.rotation, rot, _rotSpeed * Time.deltaTime);
+        ////  회전 보간..
+        //_myTransf.rotation = Quaternion.Lerp(_myTransf.rotation, rot, _rotSpeed * Time.deltaTime);
 
         //  앞 방향으로 이동..
         _myTransf.Translate(Vector3.forward * Time.deltaTime * _moveSpeed);
 
     }// protected void Move_By_WayPts()
     //----------------------------------
-    protected void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         //  웨이포인트에 도달 하면
         //  다음 웨이포인트 인덱스 설정..
