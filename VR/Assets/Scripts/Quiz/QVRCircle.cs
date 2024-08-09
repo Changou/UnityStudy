@@ -115,6 +115,20 @@ public class QVRCircle : MonoBehaviour
             }// if( Input.GetKeyDown( KeyCode.Space ))
 
         }// if( _MyPick != null )
+    }
 
+    public void CancelPick()
+    {
+        _myPick._Collider.enabled = true;
+
+        //  키네마틱을 꺼줘야
+        //  물리력 적용..
+        _myPick._RBody.isKinematic = false;
+
+        //  페어런팅 오프..
+        _myPick.transform.SetParent(null);
+
+        //  선택한 오브젝트 해제..
+        _myPick = null;
     }
 }

@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class BoxCheck : MonoBehaviour
 {
-    List<GameObject> boxs = new List<GameObject>();
-
     public int BoxCount
     {
-        get { return boxs.Count; }
+        get { return transform.childCount - 1; }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Box"))
         {
-            if(!boxs.Contains(collision.gameObject)) 
-                boxs.Add(collision.gameObject);
+            collision.transform.SetParent(transform);
+            if(transform.childCount >= 6)
+            {
+                GameManager.Instance.GameOver();
+            }
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Box"))
+        {
+            collision.transform.SetParent(null);
         }
     }
 }

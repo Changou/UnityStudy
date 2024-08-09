@@ -12,18 +12,16 @@ public class MoveCtrlEX : MoveCtrl
     [Header("[ 카메라 트랜스폼.. ]"), SerializeField]
     Transform _camTransf;
     //---------------------------
-    [Header("[ 캐릭터 컨트롤러.. ]"), SerializeField]
-    CharacterController _characterCtrl;
-    //---------------------------
 
     [SerializeField] float _jumpPower = 3f;
 
-    Vector3 _jDir;
+    [SerializeField] Rigidbody _rb; 
+    
     protected override void Awake()
     {
         base.Awake();
         _camTransf = Camera.main.GetComponent<Transform>();
-        _characterCtrl = GetComponent<CharacterController>();
+        _rb = GetComponent<Rigidbody>();
 
     }// protected override void Awake()
     //---------------------------
@@ -34,21 +32,19 @@ public class MoveCtrlEX : MoveCtrl
         Vector3 dir = _camTransf.forward;
 
         //  이동..
-        _characterCtrl.Move((dir + _jDir) * speed * Time.deltaTime);
+        transform.position += dir * speed * Time.deltaTime;
 
     }// void Move_By_LookAt()
     //---------------------------
     protected override void Update()
     {
-        if (_characterCtrl.isGrounded)
+        if (GameManager.Instance._IsGameOver) return;
+
+        if (Input.GetKeyDown(KeyCode.Space) && _rb.velocity.y >=- 0.1f && _rb.velocity.y <= 0.1f)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _jDir.y = _jumpPower;
-                _eMoveType = eMOVE_TYPE.LOOK_AT;
-            }
+            _rb.AddForce(transform.up * _jumpPower,ForceMode.Impulse);
         }
-        _jDir.y += Physics.gravity.y * Time.deltaTime;
+
         switch (_eMoveType)
         {
             case eMOVE_TYPE.WAYPOINT:
@@ -68,15 +64,19 @@ public class MoveCtrlEX : MoveCtrl
 
         }
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if(other.CompareTag("MoveCube"))
+        if (collision.gameObject.CompareTag("MoveCube"))
         {
-
+            transform.SetParent(collision.transform);
+            
         }
-        if (other.CompareTag("WAYPOINT") && _eMoveType == eMOVE_TYPE.WAYPOINT)
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("MoveCube"))
         {
-            _nextWayptIdx = (++_nextWayptIdx >= _wayPts.Length) ? 1 : _nextWayptIdx;
+            transform.SetParent(null);
         }
     }
 }

@@ -9,7 +9,7 @@ public class PickableItem : MonoBehaviour,IInteract
     Rigidbody _rBody;
     public Rigidbody _RBody => _rBody;
     //--------------------------------------------
-    void Awake()
+     void Awake()
     {
         _collider = transform.GetComponent<Collider>();
         _rBody = transform.GetComponent<Rigidbody>();
