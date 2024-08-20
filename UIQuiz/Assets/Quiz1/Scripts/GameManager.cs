@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 
     public bool _IsgameOver = false;
 
+    [SerializeField] public int _maxGameCnt = 0;
+
     [Header("테스트용"), SerializeField] public bool _IsTestOn;
 
     private void Awake()
@@ -19,5 +21,6 @@ public class GameManager : MonoBehaviour
     public int _winCnt = 0;
     public int _loseCnt = 0;
     public int _drawCnt = 0;
-    
+
+    public bool _isRestartOn = false;
 }

@@ -80,7 +80,7 @@ public class Result : MonoBehaviour
 
     void ResultDiscrimination()
     {
-        if (++GameManager._Inst._gameCnt >= 5)
+        if (++GameManager._Inst._gameCnt >= GameManager._Inst._maxGameCnt)
         {
             UIManager._Inst.OffText();
             UIManager._Inst.Only_Show_UI(UIManager.UI.END);
