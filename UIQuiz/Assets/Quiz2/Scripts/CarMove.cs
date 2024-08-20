@@ -16,6 +16,7 @@ public enum CAR_TYPE
 public class CarMove : MonoBehaviour
 {
     [SerializeField] float _maxCarSpeed;
+    [SerializeField] float _minCarSpeed;
     [SerializeField] float _carSpeed;
     [SerializeField] CAR_TYPE _type;
 
@@ -44,14 +45,14 @@ public class CarMove : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(0.5f);
-            _carSpeed = Random.Range(_carSpeed, _maxCarSpeed);
+            _carSpeed = Random.Range(_minCarSpeed, _maxCarSpeed);
             yield return null;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("EndLine"))
+        if (other.CompareTag("EndLine") && !GameManager2._Inst._carRanks.Contains(_type))
         {
             _stop = true;
             _rb.isKinematic = true;

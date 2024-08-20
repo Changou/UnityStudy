@@ -19,6 +19,7 @@ public class Game2 : MonoBehaviour
     {
         if(GameManager2._Inst._carRanks.Count >= 5)
         {
+            Time.timeScale = 1.0f;
             UIManager2._Inst.Only_Show_UI(UIManager2.UI.RESULT);
         }
     }

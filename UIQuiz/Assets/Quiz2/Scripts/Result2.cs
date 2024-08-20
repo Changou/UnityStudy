@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class Result2 : MonoBehaviour
 
     private void OnEnable()
     {
+        CinemachineBrain.SoloCamera = null;
         if (GameManager2._Inst._carRanks[0] == GameManager2._Inst._selectCar)
         {
             _resultText[0].SetActive(true);
@@ -22,6 +24,7 @@ public class Result2 : MonoBehaviour
 
     public void RestartBtn()
     {
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
