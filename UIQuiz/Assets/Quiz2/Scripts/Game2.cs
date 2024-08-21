@@ -17,6 +17,7 @@ public class Game2 : MonoBehaviour
             foreach (CarMove car in _cars)
             {
                 car.transform.position = new Vector3(car.transform.position.x, 0.45f, -70f);
+                car.transform.rotation = Quaternion.Euler(-5, 0, 0);
                 car.enabled = false;
             }
         };
@@ -34,7 +35,9 @@ public class Game2 : MonoBehaviour
         if(GameManager2._Inst._carRanks.Count >= 5)
         {
             Time.timeScale = 1.0f;
+            Time.fixedDeltaTime = Time.timeScale * 0.02f;
             UIManager2._Inst.Only_Show_UI(UIManager2.UI.RESULT);
+            UIManager2._Inst.Show_Rank();
         }
     }
 

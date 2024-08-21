@@ -17,6 +17,7 @@ public class UIManager2 : MonoBehaviour
         SELECT,
         GAME,
         RESULT,
+        RANK,
 
         MAX
     }
@@ -41,5 +42,10 @@ public class UIManager2 : MonoBehaviour
         {
             ui.SetActive(false);
         }
+    }
+
+    public void Show_Rank()
+    {
+        _uis[(int)UI.RANK].SetActive(true);
     }
 }

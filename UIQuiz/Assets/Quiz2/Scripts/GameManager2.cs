@@ -24,6 +24,12 @@ public class GameManager2 : MonoBehaviour
 
     public Action _GameResetEvent;
 
+    public int MyRank()
+    {
+        int rank = _carRanks.FindIndex(x => x.Equals(_selectCar));
+        return rank + 1;
+    }
+
     public void GameReset()
     {
         _GameResetEvent();

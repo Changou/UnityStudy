@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class Result2 : MonoBehaviour
 {
     [SerializeField] GameObject[] _resultText;
+    [SerializeField] Text _selectRank;
 
     private void Awake()
     {
@@ -22,6 +23,8 @@ public class Result2 : MonoBehaviour
 
     private void OnEnable()
     {
+        _selectRank.text = GameManager2._Inst.MyRank() + "µî";
+
         CinemachineBrain.SoloCamera = null;
         if (GameManager2._Inst._carRanks[0] == GameManager2._Inst._selectCar)
         {

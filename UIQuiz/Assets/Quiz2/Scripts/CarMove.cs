@@ -19,7 +19,10 @@ public class CarMove : MonoBehaviour
     [SerializeField] float _minCarSpeed;
     [SerializeField] float _carSpeed;
     [SerializeField] float _startSpeed;
+    [SerializeField] float _prevSpeed;
     [SerializeField] CAR_TYPE _type;
+
+    [Header("부스터 효과"), SerializeField] ParticleSystem _particle;
 
     Rigidbody _rb;
 
@@ -31,9 +34,11 @@ public class CarMove : MonoBehaviour
     }
     private void OnEnable()
     {
+        _particle.Play();
         _stop = false;
         _rb.isKinematic = false;
-        
+        _carSpeed = _minCarSpeed;
+
         StartCoroutine(ChangeSpeed());
     }
 
@@ -41,7 +46,9 @@ public class CarMove : MonoBehaviour
     {
         if (_stop) return;
 
-        if(_rb.velocity.y != 0) _rb.AddForce(transform.forward * _startSpeed, ForceMode.Impulse);
+        if(_rb.IsSleeping()) _rb.AddForce(transform.forward * _startSpeed, ForceMode.Impulse);
+
+        //if (_rb.velocity.y != 0) _rb.AddForce(transform.forward * _startSpeed, ForceMode.Impulse);
 
         _rb.AddForce(transform.forward * _carSpeed, ForceMode.Force);
     }
@@ -50,8 +57,14 @@ public class CarMove : MonoBehaviour
     {
         while (!_stop)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
             _carSpeed = Random.Range(_minCarSpeed, _maxCarSpeed);
+            if (_carSpeed > _prevSpeed + 300)
+                _particle.Play();
+            else
+                _particle.Stop();
+
+            _prevSpeed = _carSpeed;
             yield return null;
         }
     }
