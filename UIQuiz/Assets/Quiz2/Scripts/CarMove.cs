@@ -18,6 +18,7 @@ public class CarMove : MonoBehaviour
     [SerializeField] float _maxCarSpeed;
     [SerializeField] float _minCarSpeed;
     [SerializeField] float _carSpeed;
+    [SerializeField] float _startSpeed;
     [SerializeField] CAR_TYPE _type;
 
     Rigidbody _rb;
@@ -30,7 +31,9 @@ public class CarMove : MonoBehaviour
     }
     private void OnEnable()
     {
+        _stop = false;
         _rb.isKinematic = false;
+        
         StartCoroutine(ChangeSpeed());
     }
 
@@ -38,11 +41,14 @@ public class CarMove : MonoBehaviour
     {
         if (_stop) return;
 
+        if(_rb.velocity.y != 0) _rb.AddForce(transform.forward * _startSpeed, ForceMode.Impulse);
+
         _rb.AddForce(transform.forward * _carSpeed, ForceMode.Force);
     }
+
     IEnumerator ChangeSpeed()
     {
-        while (true)
+        while (!_stop)
         {
             yield return new WaitForSeconds(0.5f);
             _carSpeed = Random.Range(_minCarSpeed, _maxCarSpeed);

@@ -8,6 +8,11 @@ public class CarCheck : MonoBehaviour
 
     bool isOn = false;
 
+    private void Start()
+    {
+        GameManager2._Inst._GameResetEvent += () => isOn = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!isOn)

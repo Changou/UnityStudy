@@ -9,6 +9,17 @@ public class Result2 : MonoBehaviour
 {
     [SerializeField] GameObject[] _resultText;
 
+    private void Awake()
+    {
+        GameManager2._Inst._GameResetEvent += () =>
+        {
+            for (int i = 0; i < _resultText.Length; i++)
+            {
+                _resultText[i].SetActive(false);
+            }
+        };
+    }
+
     private void OnEnable()
     {
         CinemachineBrain.SoloCamera = null;
@@ -24,7 +35,7 @@ public class Result2 : MonoBehaviour
 
     public void RestartBtn()
     {
-        
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        GameManager2._Inst.GameReset();
     }
 }

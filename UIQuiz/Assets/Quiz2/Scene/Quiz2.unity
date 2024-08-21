@@ -555,6 +555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _raceStartCountdown: 3
+  _countDown: 0
   _raceStartText: {fileID: 1180503352}
   _cars:
   - {fileID: 1211334196}
@@ -1850,6 +1851,7 @@ MonoBehaviour:
   _maxCarSpeed: 1000
   _minCarSpeed: 600
   _carSpeed: 700
+  _startSpeed: 5
   _type: 3
 --- !u!1 &655450009
 GameObject:
@@ -2187,6 +2189,7 @@ MonoBehaviour:
   _maxCarSpeed: 1000
   _minCarSpeed: 600
   _carSpeed: 700
+  _startSpeed: 5
   _type: 0
 --- !u!1 &846916656
 GameObject:
@@ -3224,6 +3227,7 @@ MonoBehaviour:
   _maxCarSpeed: 1000
   _minCarSpeed: 600
   _carSpeed: 700
+  _startSpeed: 5
   _type: 2
 --- !u!1 &1231921704
 GameObject:
@@ -4474,6 +4478,7 @@ MonoBehaviour:
   _maxCarSpeed: 1000
   _minCarSpeed: 600
   _carSpeed: 700
+  _startSpeed: 5
   _type: 1
 --- !u!1 &1801192176
 GameObject:
@@ -4787,6 +4792,7 @@ MonoBehaviour:
   _maxCarSpeed: 1000
   _minCarSpeed: 600
   _carSpeed: 700
+  _startSpeed: 5
   _type: 4
 --- !u!4 &1890379139 stripped
 Transform:

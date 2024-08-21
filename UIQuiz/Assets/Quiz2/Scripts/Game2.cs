@@ -6,11 +6,25 @@ using UnityEngine.UI;
 public class Game2 : MonoBehaviour
 {
     [SerializeField] int _raceStartCountdown;
+    [SerializeField] int _countDown;
     [SerializeField] Text _raceStartText;
     [SerializeField] CarMove[] _cars;
 
+    private void Awake()
+    {
+        GameManager2._Inst._GameResetEvent += () =>
+        {
+            foreach (CarMove car in _cars)
+            {
+                car.transform.position = new Vector3(car.transform.position.x, 0.45f, -70f);
+                car.enabled = false;
+            }
+        };
+    }
+
     private void OnEnable()
     {
+        _countDown = _raceStartCountdown;
         _raceStartText.text = _raceStartCountdown.ToString();
         StartCoroutine(RaceCount());
     }
@@ -26,11 +40,11 @@ public class Game2 : MonoBehaviour
 
     IEnumerator RaceCount()
     {
-        while(_raceStartCountdown > 1)
+        while(_countDown > 1)
         {
             yield return new WaitForSeconds(1f);
-            --_raceStartCountdown;
-            _raceStartText.text = _raceStartCountdown.ToString();
+            --_countDown;
+            _raceStartText.text = _countDown.ToString();
             yield return null;
         }
 

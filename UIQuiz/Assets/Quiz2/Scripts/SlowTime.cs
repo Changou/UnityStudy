@@ -9,6 +9,11 @@ public class SlowTime : MonoBehaviour
 
     bool _isOn = false;
 
+    private void Start()
+    {
+        GameManager2._Inst._GameResetEvent += () => _isOn = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!_isOn)
