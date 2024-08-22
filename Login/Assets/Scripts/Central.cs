@@ -19,11 +19,11 @@ public class Central : MonoBehaviour
         _archive.AddNewInfomation(info);
     }
 
-    public string SearchInArchive(string id, string pw)
+    public string LoginArchive(string id, string pw)
     {
-        string searchId = _archive.Search(id, pw);
-        if (searchId != null)
-            return searchId;
+        string searchName = _archive.Search(id, pw);
+        if (searchName != null)
+            return searchName;
         else return null;
     }
 }

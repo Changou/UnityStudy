@@ -11,6 +11,7 @@ public class Archive
         string _password;
         string _address;
 
+        public string _Name => _name;
         public string _ID => _id;
         public string _Password => _password; 
 
@@ -29,9 +30,9 @@ public class Archive
     {
         int index = _InfoArchive.FindIndex(x => x._ID.Equals(id));
         if (index == -1)  return null; 
-        if (_InfoArchive[index]._Password.Equals(pw)) return null;
+        if (!_InfoArchive[index]._Password.Equals(pw)) return null;
 
-        return _InfoArchive[index]._ID;
+        return _InfoArchive[index]._Name;
     }
 
     public void AddNewInfomation(string[] info)

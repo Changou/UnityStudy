@@ -11,21 +11,15 @@ public class Login : MonoBehaviour
     [SerializeField] float _errorDelay;
     [SerializeField] Text _succesT;
 
-    private void OnEnable()
-    {
-        _idInput.text = "";
-        _passwordInput.text = "";
-    }
-
     public void LoginBtn()
     {
         string id = _idInput.text;
         string password = _passwordInput.text;
 
-        string search = Central._Inst.SearchInArchive(id, password);
-        if (search != null)
+        string name = Central._Inst.LoginArchive(id, password);
+        if (name != null)
         {
-            _succesT.text = search + "님\n환영합니다.";
+            _succesT.text = name + "님\n환영합니다.";
             UIManager._Inst.Show_Only(UIManager.UI.SUCCESS);
         }
         else
