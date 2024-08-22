@@ -9,7 +9,7 @@ public class SliderBase : MonoBehaviour
     [SerializeField] Slider _slider;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         _slider.onValueChanged.AddListener(OnSlider);
     }

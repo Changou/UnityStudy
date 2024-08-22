@@ -6,8 +6,11 @@ public class Face : SliderBase
 {
     protected override void OnSlider(float value)
     {
-        Vector3 scale = _target[0].localScale;
-        scale.x = value;
-        _target[0].localScale = scale;
+        for (int i = 0; i < _target.Length; i++)
+        {
+            Vector3 scale = _target[i].localScale;
+            scale.x = value;
+            _target[i].localScale = scale;
+        }
     }
 }
