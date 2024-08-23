@@ -13,7 +13,8 @@ public class UIManager : MonoBehaviour
     {
         LOGIN,
         ACCESSION,
-        ACCESSSUCCESS,
+        SEARCHID,
+        SEARCHPW,
         SUCCESS,
 
         MAX
