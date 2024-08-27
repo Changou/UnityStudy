@@ -7,6 +7,11 @@ public class TextSetting : MonoBehaviour
 {
     [SerializeField] Text _text;
 
+    public void SettingText()
+    {
+        _text.text = "";
+    }
+
     public void SettingText(string[] data,int value)
     {
         _text.text = $"<{value + 1}¹ø>\n" +

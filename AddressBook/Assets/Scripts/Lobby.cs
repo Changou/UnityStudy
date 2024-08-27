@@ -8,14 +8,26 @@ public class Lobby : MonoBehaviour
     [SerializeField] Transform _textPoint;
     [SerializeField] GameObject _prefab;
 
-    string[] _data = new string[5];
+    string[] _data;
 
     private void OnEnable()
-    { 
+    {
+        Text[] child = _textPoint.GetComponentsInChildren<Text>();
+
+        if(child != null)
+        {
+            for(int i = 0; i < child.Length; i++)
+            {
+                Destroy(child[i].gameObject);
+            }
+        }
+
         int count = Central._Inst.ListCount();
 
         if (count <= 0)
             return;
+
+        _data = new string[Central._Inst.CallAddressFieldCnt()];
 
         for(int i = 0; i < count; i++)
         {

@@ -6,13 +6,15 @@ using UnityEngine.UI;
 public class AddAddress : MonoBehaviour
 {
     [Header("주소록 추가")]
-    [SerializeField] InputField _inputName;
-    [SerializeField] Toggle[] _toggleMarry;
-    [SerializeField] Dropdown[] _drop;
-    [SerializeField] Slider _sliderAge;
-    [SerializeField] ToggleGroup _toGJob;
+    [SerializeField] protected InputField _inputName;
+    [SerializeField] protected Toggle[] _toggleMarry;
+    [SerializeField] protected Dropdown[] _drop;
+    [SerializeField] protected Slider _sliderAge;
+    [SerializeField] protected ToggleGroup _toGJob;
 
-    private void OnEnable()
+    [SerializeField] protected Duplication _dupName;
+
+    protected virtual void OnEnable()
     {
         _inputName.text = "";
         foreach(Toggle toggle in _toggleMarry)
@@ -44,11 +46,35 @@ public class AddAddress : MonoBehaviour
         age = (int)_sliderAge.value;
         job = ToggleSelect();
 
-        Central._Inst.AddCallArchive(name, marry, county, city, age, job);
+        if (ErrorCheck())
+        {
+            return;
+        }
+        AddressClass address = new AddressClass(name, marry, county, city, age, job);
+
+        Central._Inst.AddCallArchive(address);
+        UIManager._Inst.Message(UIManager.MESSAGE.SUCCESS);
         UIManager._Inst.Show_Only(UIManager.UI.LOBBY);
     }
 
-    string ToggleSelect()
+    protected virtual bool ErrorCheck()
+    {
+        if (!_dupName._isCheck) 
+        {
+            UIManager._Inst.Message(UIManager.MESSAGE.DUPLICATIONNULLERROR);
+            return true;
+        }
+        if ((!_toggleMarry[0].isOn && !_toggleMarry[1].isOn) ||
+            (_toggleMarry[0].isOn && _toggleMarry[1].isOn))
+        {
+            UIManager._Inst.Message(UIManager.MESSAGE.NULLERROR);
+            return true;
+        }
+
+        return false;
+    }
+
+    protected string ToggleSelect()
     {
         Toggle t = _toGJob.GetFirstActiveToggle();
         return t.GetComponentInChildren<Text>().text;

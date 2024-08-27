@@ -6,6 +6,12 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager _Inst;
+
+    private void Awake()
+    {
+        _Inst = this;
+    }
+
     [SerializeField] GameObject[] _uis;
     [SerializeField] Text _msg;
     [SerializeField] float _delay;
@@ -16,6 +22,8 @@ public class UIManager : MonoBehaviour
     {
         LOBBY,
         ADD,
+        REMOVE,
+        EDIT,
 
         MAX
     }
@@ -24,7 +32,12 @@ public class UIManager : MonoBehaviour
     {
         SUCCESS,
         DUPLICATIONERROR,
+        DUPLICATIONNULLERROR,
         NULLERROR,
+        REMOVE,
+        REMOVEALL,
+        EDIT,
+        NOTEDIT,
 
         MAX
     }
@@ -52,15 +65,34 @@ public class UIManager : MonoBehaviour
         {
             _cor = StartCoroutine(MessageEffect("등록이 완료되었습니다.", Color.black));
         }
-        else if (msg == MESSAGE.DUPLICATIONERROR)
+        else if(msg == MESSAGE.DUPLICATIONERROR)
+        {
+            _cor = StartCoroutine(MessageEffect("중복된 이름입니다.", Color.red));
+        }
+        else if (msg == MESSAGE.DUPLICATIONNULLERROR)
         {
             _cor = StartCoroutine(MessageEffect("중복확인을 하지 않았습니다.", Color.red));
         }
         else if (msg == MESSAGE.NULLERROR)
         {
-            _cor = StartCoroutine(MessageEffect("입력하지 않은 정보가 존재합니다.", Color.red));
+            _cor = StartCoroutine(MessageEffect("잘못된 정보가 존재합니다.", Color.red));
         }
-
+        else if(msg == MESSAGE.REMOVE)
+        {
+            _cor = StartCoroutine(MessageEffect("삭제가 완료되었습니다.", Color.black));
+        }
+        else if(msg == MESSAGE.REMOVEALL)
+        {
+            _cor = StartCoroutine(MessageEffect("전체삭제가 완료되었습니다.", Color.black));
+        }
+        else if(msg == MESSAGE.EDIT)
+        {
+            _cor = StartCoroutine(MessageEffect("편집이 완료되었습니다.", Color.black));
+        }
+        else if(msg == MESSAGE.NOTEDIT)
+        {
+            _cor = StartCoroutine(MessageEffect("편집할 데이터가 없습니다.", Color.red));
+        }
     }
 
     IEnumerator MessageEffect(string text, Color color)
