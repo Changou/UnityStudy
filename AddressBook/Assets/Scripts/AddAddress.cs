@@ -64,12 +64,6 @@ public class AddAddress : MonoBehaviour
             UIManager._Inst.Message(UIManager.MESSAGE.DUPLICATIONNULLERROR);
             return true;
         }
-        if ((!_toggleMarry[0].isOn && !_toggleMarry[1].isOn) ||
-            (_toggleMarry[0].isOn && _toggleMarry[1].isOn))
-        {
-            UIManager._Inst.Message(UIManager.MESSAGE.NULLERROR);
-            return true;
-        }
 
         return false;
     }

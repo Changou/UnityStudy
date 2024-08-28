@@ -5,20 +5,18 @@ using UnityEngine.UI;
 
 public class Edit : AddAddress
 {
-    [SerializeField] EditAddressList _editList;
     [SerializeField] Address _address;
+
+    public string[] _data;
+    public string _loadpath;
+
+    public int _editNumber;
 
     public string _currentName;
 
     protected override void OnEnable()
     {
-        if(Central._Inst.ListCount() <= 0)
-        {
-            UIManager._Inst.Message(UIManager.MESSAGE.NOTEDIT);
-            UIManager._Inst.Show_Only(UIManager.UI.LOBBY);
-        }
-        else
-            Setting();
+        Setting();
     }
 
     public void EditAddressList()
@@ -48,7 +46,12 @@ public class Edit : AddAddress
         }
 
         AddressClass address = new AddressClass(name, marry, county, city, age, job);
-        Central._Inst.CallEditAddress(_editList.AddressNameValue, address);
+
+        if(!string.IsNullOrEmpty(_loadpath))
+            Central._Inst.LoadFileEdit(_loadpath, address);
+        else
+            Central._Inst.CallEditAddress(_editNumber, address);
+
         UIManager._Inst.Message(UIManager.MESSAGE.EDIT);
         UIManager._Inst.Show_Only(UIManager.UI.LOBBY);
     }
@@ -64,7 +67,10 @@ public class Edit : AddAddress
 
         string[] datas = new string[Central._Inst.CallAddressFieldCnt()];
 
-        Central._Inst.GetData(ref datas, _editList.AddressNameValue);
+        if(!string.IsNullOrEmpty(_loadpath))
+            datas = _data;
+        else
+            Central._Inst.GetData(ref datas, _editNumber);
 
         _inputName.text = datas[0];
         _currentName = datas[0];

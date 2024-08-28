@@ -23,6 +23,37 @@ public class Central : MonoBehaviour
         _archive.JsonLoad(_path);
     }
 
+    public void FileLoad(ref string[] data, string path)
+    {
+        _archive.JsonLoadFile(ref data, path);
+    }
+
+    public void LoadFileEdit(string path, AddressClass editAddress)
+    {
+        _archive.JsonFileSave(path, editAddress);
+    }
+
+    //로드 파일 삭제
+    public void DeleteFile(string path)
+    {
+        File.Delete(path);
+    }
+
+    //name의 파일이 존재하는지 검색
+    public bool FileSearch(ref string path, string name) 
+    {
+        string _path = Application.dataPath;
+        _path = _path.Replace("/Assets", "");
+        string fileName = "Data/" + name + ".json";
+        _path = Path.Combine(_path, fileName);
+        if (File.Exists(_path))
+        {
+            path = _path;
+            return false;
+        }
+        return true;
+    }
+
     public void CallRemoveAllAddress()
     {
         _archive.ListRemoveAll();
