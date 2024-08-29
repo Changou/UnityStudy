@@ -22,7 +22,6 @@ public class UIManager : MonoBehaviour
     {
         LOBBY,
         ADD,
-        REMOVE,
         EDIT,
 
         MAX
@@ -35,9 +34,18 @@ public class UIManager : MonoBehaviour
         DUPLICATIONNULLERROR,
         NULLERROR,
         REMOVE,
-        REMOVEALL,
         EDIT,
         NOTEDIT,
+        FILELOADFAIL,
+
+        MAX
+    }
+
+    public enum POPUP
+    {
+        DETAIL,
+        REMOVE,
+        EDIT,
 
         MAX
     }
@@ -81,10 +89,6 @@ public class UIManager : MonoBehaviour
         {
             _cor = StartCoroutine(MessageEffect("삭제가 완료되었습니다.", Color.black));
         }
-        else if(msg == MESSAGE.REMOVEALL)
-        {
-            _cor = StartCoroutine(MessageEffect("전체삭제가 완료되었습니다.", Color.black));
-        }
         else if(msg == MESSAGE.EDIT)
         {
             _cor = StartCoroutine(MessageEffect("편집이 완료되었습니다.", Color.black));
@@ -92,6 +96,10 @@ public class UIManager : MonoBehaviour
         else if(msg == MESSAGE.NOTEDIT)
         {
             _cor = StartCoroutine(MessageEffect("편집할 데이터가 없습니다.", Color.red));
+        }
+        else if(msg == MESSAGE.FILELOADFAIL)
+        {
+            _cor = StartCoroutine(MessageEffect("파일로드에 실패하였습니다.", Color.red));
         }
     }
 

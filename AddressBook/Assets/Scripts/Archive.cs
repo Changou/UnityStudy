@@ -30,6 +30,11 @@ public class Archive
 {
     List<AddressClass> _addressList = new List<AddressClass>();
 
+    public void JsonFileSave(string path, AddressClass editAddress)
+    {
+        JsonUtilityExtention.FileSave(editAddress, path);
+    }
+
     //value번의 리스트 편집
     public void ListEdit(int value, AddressClass newclass)
     {
@@ -91,6 +96,20 @@ public class Archive
     public int ListCount()
     {
         return _addressList.Count;
+    }
+
+    public void JsonLoadFile(ref string[] data, string path)
+    {
+        AddressClass newAddress = JsonUtilityExtention.FileLoad<AddressClass>(path);
+        data[0] = newAddress._name;
+        if (newAddress._marry)
+            data[1] = "기혼";
+        else
+            data[1] = "미혼";
+        data[2] = newAddress._county;
+        data[3] = newAddress._city;
+        data[4] = newAddress._age.ToString();
+        data[5] = newAddress._job;
     }
 
     //json 로드

@@ -14,14 +14,11 @@ public class TextSetting : MonoBehaviour
 
     public void SettingText(string[] data,int value)
     {
-        _text.text = $"<{value + 1}번>\n" +
+        _text.text = $"<size=12><{value + 1}번></size>\n" +
                 $"이름 : {data[0]}\n" +
-                $"결혼 여부 : {data[1]}\n" +
-                $"주소 : {data[2]} {data[3]}\n" +
-                $"나이 : {data[4]}\n" +
-                $"직업 : {data[5]}";
+                $"나이 : {data[4]}";
     }
-    public void SettingText(string[] data)
+    public void SettingAllDataText(string[]data) 
     {
         _text.text = 
                 $"이름 : {data[0]}\n" +
@@ -29,5 +26,12 @@ public class TextSetting : MonoBehaviour
                 $"주소 : {data[2]} {data[3]}\n" +
                 $"나이 : {data[4]}\n" +
                 $"직업 : {data[5]}";
+    }
+
+    public void SettingText(string[] data)
+    {
+        _text.text =
+                $"이름 : {data[0]}\n" +
+                $"나이 : {data[4]}";
     }
 }
