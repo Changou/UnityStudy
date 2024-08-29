@@ -7,9 +7,6 @@ public class Edit : AddAddress
 {
     [SerializeField] Address _address;
 
-    public string[] _data;
-    public string _loadpath;
-
     public int _editNumber;
 
     public string _currentName;
@@ -47,10 +44,8 @@ public class Edit : AddAddress
 
         AddressClass address = new AddressClass(name, marry, county, city, age, job);
 
-        if(!string.IsNullOrEmpty(_loadpath))
-            Central._Inst.LoadFileEdit(_loadpath, address);
-        else
-            Central._Inst.CallEditAddress(_editNumber, address);
+
+        Central._Inst.CallEditAddress(_editNumber, address);
 
         UIManager._Inst.Message(UIManager.MESSAGE.EDIT);
         UIManager._Inst.Show_Only(UIManager.UI.LOBBY);
@@ -67,10 +62,7 @@ public class Edit : AddAddress
 
         string[] datas = new string[Central._Inst.CallAddressFieldCnt()];
 
-        if(!string.IsNullOrEmpty(_loadpath))
-            datas = _data;
-        else
-            Central._Inst.GetData(ref datas, _editNumber);
+        Central._Inst.GetData(ref datas, _editNumber);
 
         _inputName.text = datas[0];
         _currentName = datas[0];

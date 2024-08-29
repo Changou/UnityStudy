@@ -55,9 +55,14 @@ public class JsonUtilityExtention : MonoBehaviour
         JsonWrapper<T> wrapper = new JsonWrapper<T>();
         wrapper.datas = datas;
         string json = JsonUtility.ToJson(wrapper);
-        json = PrettyPrintJson(json);
-        //if (!path.StartsWith('/')) path = "/" + path;
-        File.WriteAllText(path, json);
+        //json = PrettyPrintJson(json);
+
+        Crypto _crypto = new Crypto();
+        string encyptJson = _crypto.Encrypt(json);
+        string hash = _crypto.ComputeSha256Hash(encyptJson);
+
+        File.WriteAllText(path, encyptJson);
+        File.WriteAllText(path + ".hash", hash);
         AssetDatabase.Refresh();
     }
 
@@ -68,6 +73,26 @@ public class JsonUtilityExtention : MonoBehaviour
     /// <param name="path">경로</param>
     /// <returns>데이터 리스트 반환</returns>
     public static List<T> FileLoadList<T>(string path)
+    {
+        //if (!path.StartsWith('/')) path = "/" + path;
+        string json = File.ReadAllText(path);
+        string hash = File.ReadAllText(path + ".hash");
+
+        Crypto _crypto = new Crypto();
+        string newHash = _crypto.ComputeSha256Hash(json);
+
+        if (hash != newHash) 
+        {
+            Debug.LogError("파일 무결성 검증 실패"); return null;
+        }
+
+        string decyptjson = _crypto.Decrypt(json);
+
+        JsonWrapper<T> wrapper = JsonUtility.FromJson<JsonWrapper<T>>(decyptjson);
+        return wrapper.datas;
+    }
+
+    public static List<T> FileLoadCity<T>(string path)
     {
         //if (!path.StartsWith('/')) path = "/" + path;
         string json = File.ReadAllText(path);

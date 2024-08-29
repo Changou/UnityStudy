@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,15 +22,18 @@ public class Lobby : MonoBehaviour
 
     private void OnEnable()
     {
-        if (_IsLoad) return;
+        if (!_IsLoad) _loadText.gameObject.SetActive(false);
 
-        _loadText.gameObject.SetActive(false);
+        Setting();
+    }
 
+    void Setting()
+    {
         LobbyDataSetting[] child = _textPoint.GetComponentsInChildren<LobbyDataSetting>();
 
-        if(child != null)
+        if (child != null)
         {
-            for(int i = 0; i < child.Length; i++)
+            for (int i = 0; i < child.Length; i++)
             {
                 Destroy(child[i].gameObject);
             }
@@ -42,7 +46,7 @@ public class Lobby : MonoBehaviour
 
         _data = new string[Central._Inst.CallAddressFieldCnt()];
 
-        for(int i = 0; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
             Central._Inst.GetData(ref _data, i);
 
@@ -58,39 +62,18 @@ public class Lobby : MonoBehaviour
     public void LoadFile()
     {
         _IsLoad = true;
-        string path = "";
-        if (Central._Inst.FileSearch(ref path, _fileName.text))
-        {
-            UIManager._Inst.Message(UIManager.MESSAGE.FILELOADFAIL);
-            return;
-        }
+        string path = EditorUtility.OpenFilePanel("주소록 파일 로드", "", "json");
 
-        LobbyDataSetting[] child = _textPoint.GetComponentsInChildren<LobbyDataSetting>();
+        if (string.IsNullOrEmpty(path)) return;
 
-        if (child != null)
-        {
-            for (int i = 0; i < child.Length; i++)
-            {
-                Destroy(child[i].gameObject);
-            }
-        }
+        string[] fileName = path.Split("/");
 
-        string[] data = new string [Central._Inst.CallAddressFieldCnt()];
-
-        Central._Inst.FileLoad(ref data, path);
-
-        GameObject dataObj = Instantiate(_prefab);
-        dataObj.transform.SetParent(_textPoint);
-        dataObj.transform.localScale = Vector3.one;
-
-        dataObj.transform.GetChild(0).GetComponentInChildren<TextSetting>().SettingText(data);
-        dataObj.GetComponent<LobbyDataSetting>()._fileLoadData = data;
-
+        _loadText.text = fileName[fileName.Length - 1] + "Load";
         _loadText.gameObject.SetActive(true);
-        string[] filename = path.Split("/");
 
-        dataObj.GetComponent<LobbyDataSetting>()._fileName = filename[filename.Length - 1];
-        dataObj.GetComponent<LobbyDataSetting>()._filePath = path;
-        _loadText.text = filename[filename.Length - 1] + " Load";
+        Central._Inst.LoadFile(path);
+        UIManager._Inst.PopUp(UIManager.POPUP.DETAIL, false);
+        UIManager._Inst.Message(UIManager.MESSAGE.FILELOAD);
+        UIManager._Inst.Show_Only(UIManager.UI.LOBBY);
     }
 }

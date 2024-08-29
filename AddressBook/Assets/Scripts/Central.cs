@@ -16,21 +16,22 @@ public class Central : MonoBehaviour
         _Inst = this;
         _archive = new Archive();
         _archive.LoadCityDataFromJson();
-
-        _path = Application.dataPath;
-        _path = _path.Replace("/Assets", "");
-        _path = Path.Combine(_path, "Data/AddressData.json");
-        _archive.JsonLoad(_path);
     }
 
-    public void FileLoad(ref string[] data, string path)
+    public void LoadFile(string path)
     {
-        _archive.JsonLoadFile(ref data, path);
+        _path = path;
+        _archive.JsonLoad(path);
+    }
+    
+    public void SaveFile()
+    {
+        _archive.JsonSave();
     }
 
-    public void LoadFileEdit(string path, AddressClass editAddress)
+    public void SaveAsFile(string path)
     {
-        _archive.JsonFileSave(path, editAddress);
+        _archive.JsonSave(path);
     }
 
     //로드 파일 삭제
@@ -52,11 +53,6 @@ public class Central : MonoBehaviour
             return false;
         }
         return true;
-    }
-
-    public void CallRemoveAllAddress()
-    {
-        _archive.ListRemoveAll();
     }
 
     //value번 리스트 편집 call

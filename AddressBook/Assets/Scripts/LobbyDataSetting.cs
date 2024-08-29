@@ -11,9 +11,6 @@ public class LobbyDataSetting : MonoBehaviour
     [SerializeField] GameObject _popupRemove;
     [SerializeField] GameObject _popupEdit;
     [SerializeField] Edit _edit;
-    public string[] _fileLoadData;
-    public string _fileName;
-    public string _filePath;
 
     private void Awake()
     {
@@ -27,52 +24,23 @@ public class LobbyDataSetting : MonoBehaviour
     {
         string[] data = new string[Central._Inst.CallAddressFieldCnt()];
 
-        if (!string.IsNullOrEmpty(_filePath))  //파일을 로드했을 경우
-        {
-            _popupDetail.GetComponentInChildren<TextSetting>().SettingAllDataText(_fileLoadData);
-        }
-        else
-        {
-            Central._Inst.GetData(ref data, _dataNumber);
-            _popupDetail.GetComponentInChildren<TextSetting>().SettingAllDataText(data);
-        }
+        Central._Inst.GetData(ref data, _dataNumber);
+        _popupDetail.GetComponentInChildren<TextSetting>().SettingAllDataText(data);
+
         _popupDetail.SetActive(true);
     }
 
     public void OnPopupRemove()
     {
         _popupRemove.SetActive(true);
-        if(!string.IsNullOrEmpty(_filePath))
-        {
-            _popupRemove.GetComponentInChildren<Button>().onClick.AddListener(RemoveAddressLoadFile);
-        }
+
         _popupRemove.GetComponentInChildren<Button>().onClick.AddListener(RemoveAddress);
     }
 
     public void OnPopupEdit()
     {
         _popupEdit.SetActive(true);
-        if (!string.IsNullOrEmpty(_filePath))
-        {
-            _popupEdit.GetComponentInChildren<Button>().onClick.AddListener(EditOnLoadFile);
-        }
         _popupEdit.GetComponentInChildren<Button>().onClick.AddListener(EditOn);
-    }
-
-    void RemoveAddressLoadFile()
-    {
-        Central._Inst.DeleteFile(_filePath);
-        GameObject.Find("Lobby").GetComponent<Lobby>()._IsLoad = false;
-
-        UIManager._Inst.Show_Only(UIManager.UI.LOBBY);
-        UIManager._Inst.Message(UIManager.MESSAGE.REMOVE);
-    }
-
-    void EditOnLoadFile()
-    {
-        _edit._data = _fileLoadData;
-        _edit._loadpath = _filePath;
-        UIManager._Inst.Show_Only(UIManager.UI.EDIT);
     }
 
     void EditOn()

@@ -30,31 +30,23 @@ public class Archive
 {
     List<AddressClass> _addressList = new List<AddressClass>();
 
-    public void JsonFileSave(string path, AddressClass editAddress)
-    {
-        JsonUtilityExtention.FileSave(editAddress, path);
-    }
-
     //value번의 리스트 편집
     public void ListEdit(int value, AddressClass newclass)
     {
         _addressList.RemoveAt(value);
         _addressList.Insert(value, newclass);
-        JsonSave();
     }
 
     //리스트 전체 삭제
     public void ListRemoveAll()
     {
         _addressList.Clear();
-        JsonSave();
     }
 
     //value번의 리스트 삭제
     public void ListRemove(int value)
     {
         _addressList.RemoveAt(value);
-        JsonSave();
     }
 
     //value번의 이름 가져옴
@@ -98,20 +90,6 @@ public class Archive
         return _addressList.Count;
     }
 
-    public void JsonLoadFile(ref string[] data, string path)
-    {
-        AddressClass newAddress = JsonUtilityExtention.FileLoad<AddressClass>(path);
-        data[0] = newAddress._name;
-        if (newAddress._marry)
-            data[1] = "기혼";
-        else
-            data[1] = "미혼";
-        data[2] = newAddress._county;
-        data[3] = newAddress._city;
-        data[4] = newAddress._age.ToString();
-        data[5] = newAddress._job;
-    }
-
     //json 로드
     public void JsonLoad(string path)
     {
@@ -121,7 +99,9 @@ public class Archive
         }
         else
         {
+            _addressList.Clear();
             _addressList = JsonUtilityExtention.FileLoadList<AddressClass>(path);
+            if (_addressList == null) UIManager._Inst.Message(UIManager.MESSAGE.FILELOADFAIL);
         }
     }
 
@@ -130,12 +110,16 @@ public class Archive
     {
         JsonUtilityExtention.FileSaveList(_addressList, Central._Inst._path);
     }
+    //json 세이브
+    public void JsonSave(string path)
+    {
+        JsonUtilityExtention.FileSaveList(_addressList, path);
+    }
 
     //새 주소록 등록
     public void AddNewAddress(AddressClass newclass)
     {
         _addressList.Add(newclass);
-        JsonSave();
     }
 
     [Serializable]
@@ -151,7 +135,7 @@ public class Archive
         string path = Application.dataPath;
         path = path.Replace("/Assets", "");
         path = Path.Combine(path, "Data/CityData.json");
-        _cityList = JsonUtilityExtention.FileLoadList<City>(path);
+        _cityList = JsonUtilityExtention.FileLoadCity<City>(path);
     }
 
     //value번의 도시정보 가져옴

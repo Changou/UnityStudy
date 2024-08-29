@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     }
 
     [SerializeField] GameObject[] _uis;
+    [SerializeField] GameObject[] _popups;
     [SerializeField] Text _msg;
     [SerializeField] float _delay;
 
@@ -37,6 +38,8 @@ public class UIManager : MonoBehaviour
         EDIT,
         NOTEDIT,
         FILELOADFAIL,
+        FILELOAD,
+        SAVE,
 
         MAX
     }
@@ -46,8 +49,14 @@ public class UIManager : MonoBehaviour
         DETAIL,
         REMOVE,
         EDIT,
+        SAVE,
 
         MAX
+    }
+
+    public void PopUp(POPUP pop, bool isOn)
+    {
+        _popups[(int)pop].SetActive(isOn);
     }
 
     public void Show_Only(UI ui)
@@ -100,6 +109,14 @@ public class UIManager : MonoBehaviour
         else if(msg == MESSAGE.FILELOADFAIL)
         {
             _cor = StartCoroutine(MessageEffect("파일로드에 실패하였습니다.", Color.red));
+        }
+        else if(msg == MESSAGE.FILELOAD)
+        {
+            _cor = StartCoroutine(MessageEffect("파일로드에 성공하였습니다.", Color.black));
+        }
+        else if(msg == MESSAGE.SAVE)
+        {
+            _cor = StartCoroutine(MessageEffect("파일저장이 완료되었습니다.", Color.black));
         }
     }
 
